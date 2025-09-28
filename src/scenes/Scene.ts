@@ -1,0 +1,187 @@
+import type { MapConfig, GameScene, TiledObjectLayer, MovementState } from '@/types'
+
+export class Scene extends Phaser.Scene implements GameScene {
+    public player!: Phaser.Physics.Arcade.Sprite
+    public cursors!: Phaser.Types.Input.Keyboard.CursorKeys
+    public collisionGroup!: Phaser.Physics.Arcade.StaticGroup
+    protected mapConfig: MapConfig
+    protected movementState!: MovementState
+
+    // key is the name of the map, ie "classroom"
+    constructor(key: string, mapConfig: MapConfig) {
+        super({ key })
+        this.mapConfig = mapConfig
+    }
+
+    preload(): void {
+        // tilesets
+        this.mapConfig.tilesets.forEach(tileset => {
+            this.load.image(tileset.key, tileset.imagePath)
+        })
+
+        // tilemap
+        this.load.tilemapTiledJSON('map', this.mapConfig.tilemapPath)
+
+        // player
+        this.load.aseprite('bob', '/assets/sprites/Bob_run_16x16-sheet.png', '/assets/sprites/Bob_run_16x16.json')
+
+        this.load.on('complete', () => {
+            this.mapConfig.tilesets.forEach(tileset => {
+                this.textures.get(tileset.key).setFilter(Phaser.Textures.FilterMode.NEAREST)
+            })
+        })
+    }
+
+    create(): void {
+        this.createMap()
+        this.createPlayer()
+        this.createCollisions()
+        this.setupInput()
+    }
+
+
+
+    protected createMap(): Phaser.Tilemaps.Tilemap {
+        const map = this.add.tilemap('map')
+
+        // populate tilesets
+        const tilesets: Record<string, Phaser.Tilemaps.Tileset> = {}
+        this.mapConfig.tilesets.forEach(tilesetConfig => {
+            const tileset = map.addTilesetImage(tilesetConfig.name, tilesetConfig.key)
+            if (tileset) {
+                tilesets[tilesetConfig.key] = tileset
+            }
+        })
+
+        // add each layer
+        this.mapConfig.layers.forEach(layerConfig => {
+            const tileset = tilesets[layerConfig.tilesetKey]
+            if (tileset) {
+                map.createLayer(layerConfig.name, tileset)
+            }
+        })
+
+        return map
+    }
+
+    protected createPlayer(): void {
+        this.anims.createFromAseprite('bob')
+        this.player = this.physics.add.sprite(400, 300, 'bob')
+        this.player.setScale(2)
+    }
+
+    protected createCollisions(): void {
+        const map = this.add.tilemap('map')
+        const collisionLayer = map.getObjectLayer('Collisions') as TiledObjectLayer | null
+
+        if (collisionLayer) {
+            this.collisionGroup = this.physics.add.staticGroup()
+
+            collisionLayer.objects.forEach(obj => {
+                if (obj.width > 0 && obj.height > 0 && obj.visible) {
+                    const collisionRect = this.add.rectangle(
+                        obj.x + obj.width / 2,
+                        obj.y + obj.height / 2,
+                        obj.width,
+                        obj.height,
+                        0xff0000, // bright red - useful for debug
+                        0 // invisible by default
+                    )
+                    this.physics.add.existing(collisionRect, true)
+                    this.collisionGroup.add(collisionRect)
+                }
+            })
+
+            this.physics.add.collider(this.player, this.collisionGroup)
+        }
+    }
+
+    protected setupInput(): void {
+        this.cursors = this.input.keyboard!.createCursorKeys()
+
+        this.movementState = {
+            left: false,
+            right: false,
+            up: false,
+            down: false
+        }
+
+        this.input.on('pointerdown', this.handlePointerPress, this)
+        this.input.on('pointerup', this.handlePointerRelease, this)
+    }
+
+    protected handleMovement(direction: 'up' | 'down' | 'left' | 'right', active: boolean): void {
+        this.movementState[direction] = active
+    }
+    protected handlePointerPress(pointer: Phaser.Input.Pointer): void {
+        const playerX = this.player.x
+        const playerY = this.player.y
+        const deltaX = pointer.x - playerX
+        const deltaY = pointer.y - playerY
+
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            // Horizontal movement
+            if (deltaX < 0) {
+                this.handleMovement('left', true)
+            } else {
+                this.handleMovement('right', true)
+            }
+        } else {
+            // Vertical movement
+            if (deltaY < 0) {
+                this.handleMovement('up', true)
+            } else {
+                this.handleMovement('down', true)
+            }
+        }
+    }
+
+    protected handlePointerRelease(): void {
+        this.handleMovement('left', false)
+        this.handleMovement('right', false)
+        this.handleMovement('up', false)
+        this.handleMovement('down', false)
+    }
+
+    update(): void {
+        if (!this.player || !this.cursors) return
+
+        // typescript assumes the player body is static - cast it to avoid this
+        const body = this.player.body as Phaser.Physics.Arcade.Body
+        let moving = false
+
+        // handles both keyboard and mobile touch (theoretically)
+        const leftPressed = this.cursors.left.isDown || this.movementState.left
+        const rightPressed = this.cursors.right.isDown || this.movementState.right
+        const upPressed = this.cursors.up.isDown || this.movementState.up
+        const downPressed = this.cursors.down.isDown || this.movementState.down
+
+        if (leftPressed) {
+            body.setVelocityX(-100)
+            this.player.play('walk_left', true)
+            moving = true
+        } else if (rightPressed) {
+            body.setVelocityX(100)
+            this.player.play('walk_right', true)
+            moving = true
+        } else {
+            body.setVelocityX(0)
+        }
+
+        if (upPressed) {
+            body.setVelocityY(-100)
+            this.player.play('walk_up', true)
+            moving = true
+        } else if (downPressed) {
+            body.setVelocityY(100)
+            this.player.play('walk_down', true)
+            moving = true
+        } else {
+            body.setVelocityY(0)
+        }
+
+        if (!moving) {
+            this.player.stop()
+        }
+    }
+}
