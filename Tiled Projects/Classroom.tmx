@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="25" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="24" nextobjectid="119">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="25" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="24" nextobjectid="120">
  <editorsettings>
   <export target="Classroom.json" format="json1"/>
  </editorsettings>
  <tileset firstgid="1" name="Room_Builder_free_32x32" tilewidth="32" tileheight="32" tilecount="391" columns="17">
-  <image source="Room_Builder_free_32x32.png" width="544" height="736"/>
+  <image source="../public/assets/tilemaps/Room_Builder_free_32x32.png" width="544" height="736"/>
  </tileset>
  <tileset firstgid="392" name="Interiors_free_32x32" tilewidth="32" tileheight="32" tilecount="1424" columns="16">
-  <image source="Interiors_free_32x32.png" width="512" height="2848"/>
+  <image source="../public/assets/tilemaps/Interiors_free_32x32.png" width="512" height="2848"/>
  </tileset>
  <objectgroup id="17" name="Collisions">
   <object id="6" name="collisions" x="2" y="1" width="10" height="639"/>
@@ -56,15 +56,13 @@
   <object id="52" name="collisions" x="561" y="65" width="21.6667" height="41.3333"/>
   <object id="53" name="collisions" x="408.667" y="65.6667" width="25.6667" height="42"/>
   <object id="54" x="441.333" y="65.6667" width="109.333" height="72" visible="0"/>
-  <object id="56" name="collisions" x="630" y="789"/>
+  <object id="119" name="collisions" x="608.5" y="223.292" width="63" height="62.75"/>
  </objectgroup>
  <objectgroup id="23" name="Interactable">
-  <object id="118" name="chalkboard" x="608.5" y="224.5" width="63" height="62.75">
-   <properties>
-    <property name="active" type="bool" value="true"/>
-    <property name="linkedLayer" value="&quot;Decorations&quot;"/>
-   </properties>
-  </object>
+  <properties>
+   <property name="active" type="bool" value="true"/>
+  </properties>
+  <object id="118" name="chalkboard" x="608.5" y="224.5" width="63" height="62.75"/>
  </objectgroup>
  <layer id="1" name="Floor" width="25" height="20">
   <data encoding="base64">

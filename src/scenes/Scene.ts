@@ -6,6 +6,7 @@ export class Scene extends Phaser.Scene implements GameScene {
     public collisionGroup!: Phaser.Physics.Arcade.StaticGroup
     protected mapConfig: MapConfig
     protected movementState!: MovementState
+    protected map: Phaser.Tilemaps.Tilemap;
 
     // key is the name of the map, ie "classroom"
     constructor(key: string, mapConfig: MapConfig) {
@@ -41,13 +42,13 @@ export class Scene extends Phaser.Scene implements GameScene {
 
 
 
-    protected createMap(): Phaser.Tilemaps.Tilemap {
-        const map = this.add.tilemap('map')
+    protected createMap(): void {
+        this.map = this.add.tilemap('map')
 
         // populate tilesets
         const tilesets: Record<string, Phaser.Tilemaps.Tileset> = {}
         this.mapConfig.tilesets.forEach(tilesetConfig => {
-            const tileset = map.addTilesetImage(tilesetConfig.name, tilesetConfig.key)
+            const tileset = this.map.addTilesetImage(tilesetConfig.name, tilesetConfig.key)
             if (tileset) {
                 tilesets[tilesetConfig.key] = tileset
             }
@@ -57,11 +58,10 @@ export class Scene extends Phaser.Scene implements GameScene {
         this.mapConfig.layers.forEach(layerConfig => {
             const tileset = tilesets[layerConfig.tilesetKey]
             if (tileset) {
-                map.createLayer(layerConfig.name, tileset)
+                this.map.createLayer(layerConfig.name, tileset)
             }
         })
 
-        return map
     }
 
     protected createPlayer(): void {
@@ -69,10 +69,12 @@ export class Scene extends Phaser.Scene implements GameScene {
         this.player = this.physics.add.sprite(400, 300, 'bob')
         this.player.setScale(2)
     }
+    protected createInteractables(): void {
+
+    }
 
     protected createCollisions(): void {
-        const map = this.add.tilemap('map')
-        const collisionLayer = map.getObjectLayer('Collisions') as TiledObjectLayer | null
+        const collisionLayer = this.map.getObjectLayer('Collisions') as TiledObjectLayer | null
 
         if (collisionLayer) {
             this.collisionGroup = this.physics.add.staticGroup()
