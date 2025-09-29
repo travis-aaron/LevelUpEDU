@@ -1,6 +1,8 @@
 import type { MapConfig, GameScene, TiledObject, TiledObjectLayer, MovementState } from '@/types'
 import { createCollisionBox } from '@/utils/physics'
 import { addPulseEffect } from '@/utils/sprites'
+import { InputHandler } from '@/utils/inputHandler'
+
 interface SpriteManifest {
     sprites: string[]
 }
@@ -14,6 +16,7 @@ export class Scene extends Phaser.Scene implements GameScene {
     protected spriteObjects: Set<string> = new Set()
     public collisionGroup!: Phaser.Physics.Arcade.StaticGroup
 
+    private inputHandler!: InputHandler
     public player!: Phaser.Physics.Arcade.Sprite
 
     // input objects
@@ -70,6 +73,8 @@ export class Scene extends Phaser.Scene implements GameScene {
         this.createPlayer()
         this.createCollisions()
         this.createInteractables()
+
+        this.inputHandler = new InputHandler(this, 100)
         this.setupInput()
     }
 
@@ -195,91 +200,31 @@ export class Scene extends Phaser.Scene implements GameScene {
     }
 
     protected setupInput(): void {
-        this.cursors = this.input.keyboard!.createCursorKeys()
+        this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+            this.inputHandler.setTargetPosition(pointer.worldX, pointer.worldY)
+        })
 
-        this.movementState = {
-            left: false,
-            right: false,
-            up: false,
-            down: false
-        }
+        this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
+            this.inputHandler.updateTargetPosition(pointer.worldX, pointer.worldY)
+        })
 
-        this.input.on('pointerdown', this.handlePointerPress, this)
-        this.input.on('pointerup', this.handlePointerRelease, this)
-    }
+        this.input.on('pointerup', () => {
+            this.inputHandler.releaseTarget()
+        })
 
-    protected handleMovement(direction: 'up' | 'down' | 'left' | 'right', active: boolean): void {
-        this.movementState[direction] = active
-    }
-    protected handlePointerPress(pointer: Phaser.Input.Pointer): void {
-        const playerX = this.player.x
-        const playerY = this.player.y
-        const deltaX = pointer.x - playerX
-        const deltaY = pointer.y - playerY
+        // stop movement if the mouse leaves the window
+        this.input.on('pointerout', () => {
+            this.inputHandler.releaseTarget()
+        })
 
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            // Horizontal movement
-            if (deltaX < 0) {
-                this.handleMovement('left', true)
-            } else {
-                this.handleMovement('right', true)
-            }
-        } else {
-            // Vertical movement
-            if (deltaY < 0) {
-                this.handleMovement('up', true)
-            } else {
-                this.handleMovement('down', true)
-            }
-        }
-    }
-
-    protected handlePointerRelease(): void {
-        this.handleMovement('left', false)
-        this.handleMovement('right', false)
-        this.handleMovement('up', false)
-        this.handleMovement('down', false)
+        this.input.on('pointerupoutside', () => {
+            this.inputHandler.releaseTarget()
+        })
     }
 
     update(): void {
-        if (!this.player || !this.cursors) return
+        if (!this.player) return
 
-        // typescript assumes the player body is static - cast it to avoid this
-        const body = this.player.body as Phaser.Physics.Arcade.Body
-        let moving = false
-
-        // handles both keyboard and mobile touch (theoretically)
-        const leftPressed = this.cursors.left.isDown || this.movementState.left
-        const rightPressed = this.cursors.right.isDown || this.movementState.right
-        const upPressed = this.cursors.up.isDown || this.movementState.up
-        const downPressed = this.cursors.down.isDown || this.movementState.down
-
-        if (leftPressed) {
-            body.setVelocityX(-100)
-            this.player.play('walk_left', true)
-            moving = true
-        } else if (rightPressed) {
-            body.setVelocityX(100)
-            this.player.play('walk_right', true)
-            moving = true
-        } else {
-            body.setVelocityX(0)
-        }
-
-        if (upPressed) {
-            body.setVelocityY(-100)
-            this.player.play('walk_up', true)
-            moving = true
-        } else if (downPressed) {
-            body.setVelocityY(100)
-            this.player.play('walk_down', true)
-            moving = true
-        } else {
-            body.setVelocityY(0)
-        }
-
-        if (!moving) {
-            this.player.stop()
-        }
+        this.inputHandler.update(this.player)
     }
 }
