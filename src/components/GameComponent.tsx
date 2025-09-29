@@ -73,7 +73,7 @@ export default function GameComponent() {
 
             // check device
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-            const scaleMode = isMobile ? Phaser.Scale.FIT : Phaser.Scale.EXPAND
+            const scaleMode = isMobile ? Phaser.Scale.FIT : Phaser.Scale.WIDTH_CONTROLS_HEIGHT
 
             gameInstance = new Phaser.Game({
                 type: Phaser.WEBGL,
