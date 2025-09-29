@@ -71,6 +71,10 @@ export default function GameComponent() {
             // default scene to load
             const { Classroom } = await import('@/scenes/Classroom')
 
+            // check device
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+            const scaleMode = isMobile ? Phaser.Scale.EXPAND : Phaser.Scale.ENVELOP
+
             gameInstance = new Phaser.Game({
                 type: Phaser.WEBGL,
                 width: 800,
@@ -82,7 +86,7 @@ export default function GameComponent() {
                     antialias: false
                 },
                 scale: {
-                    mode: Phaser.Scale.ENVELOP,
+                    mode: scaleMode,
                     autoCenter: Phaser.Scale.CENTER_BOTH,
                     width: 800,
                     height: 600
