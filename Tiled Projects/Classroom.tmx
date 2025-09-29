@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="25" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="24" nextobjectid="120">
  <editorsettings>
-  <export target="Classroom.json" format="json1"/>
+  <export target="../src/data/maps/classroom.json" format="json1"/>
  </editorsettings>
  <tileset firstgid="1" name="Room_Builder_free_32x32" tilewidth="32" tileheight="32" tilecount="391" columns="17">
   <image source="../public/assets/tilemaps/Room_Builder_free_32x32.png" width="544" height="736"/>
@@ -9,7 +9,7 @@
  <tileset firstgid="392" name="Interiors_free_32x32" tilewidth="32" tileheight="32" tilecount="1424" columns="16">
   <image source="../public/assets/tilemaps/Interiors_free_32x32.png" width="512" height="2848"/>
  </tileset>
- <objectgroup id="17" name="Collisions">
+ <objectgroup id="17" name="Collisions" locked="1">
   <object id="6" name="collisions" x="2" y="1" width="10" height="639"/>
   <object id="7" name="collisions" x="13" y="579" width="785" height="60"/>
   <object id="8" name="collisions" x="787" y="2" width="11" height="576"/>
@@ -62,7 +62,7 @@
   <properties>
    <property name="active" type="bool" value="true"/>
   </properties>
-  <object id="118" name="chalkboard" x="608.5" y="224.5" width="63" height="62.75"/>
+  <object id="118" name="chalkboard" x="673.167" y="225.167" width="63" height="62.75" rotation="90"/>
  </objectgroup>
  <layer id="1" name="Floor" width="25" height="20">
   <data encoding="base64">

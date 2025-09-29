@@ -23,7 +23,7 @@ export class Scene extends Phaser.Scene implements GameScene {
     constructor(key: string, mapConfig: MapConfig) {
         super({ key })
         this.mapConfig = mapConfig
-        this.sceneName = key
+        this.sceneName = mapConfig.name
     }
 
     preload(): void {
@@ -72,6 +72,28 @@ export class Scene extends Phaser.Scene implements GameScene {
         this.setupInput()
     }
 
+    /* for adding images - images are stored in /public/assets/sprites/{sceneName}/
+    * **must** be added to the manifest.json file in that folder - ie for "chalkboard.png":
+    *    {
+    *      "sprites": [
+    *        "chalkboard"
+    *      ]
+    *    }
+    */
+    protected addSpriteToScene(name: string, x: number, y: number, rotation?: number): Phaser.GameObjects.Image | null {
+        if (this.spriteObjects.has(name)) {
+            const key = `${this.sceneName}-${name}`
+            const sprite = this.add.image(x, y, key)
+
+            if (rotation !== undefined) {
+                sprite.setRotation(rotation)
+            }
+            return sprite
+        } else {
+            console.log(`No sprite exists with name ${name}`)
+            return null
+        }
+    }
 
 
     protected createMap(): void {
@@ -104,13 +126,14 @@ export class Scene extends Phaser.Scene implements GameScene {
     protected createInteractables(): void {
         const interactableLayer = this.map.getObjectLayer('Interactable') as TiledObjectLayer | null
 
-        console.log(interactableLayer)
-
-
         if (interactableLayer) {
             interactableLayer.objects.forEach(obj => {
-                console.log(obj.name)
-                console.log(obj.x, obj.y)
+                const sprite = this.addSpriteToScene(obj.name, obj.x, obj.y, obj.rotation)
+
+                if (sprite) {
+                    sprite.setOrigin(0, 0)
+                    sprite.setInteractive()
+                }
             })
         }
     }

@@ -5,6 +5,7 @@
         {
          "draworder":"topdown",
          "id":17,
+         "locked":true,
          "name":"Collisions",
          "objects":[
                 {
@@ -540,12 +541,12 @@
                  "height":62.75,
                  "id":118,
                  "name":"chalkboard",
-                 "rotation":0,
+                 "rotation":90,
                  "type":"",
                  "visible":true,
                  "width":63,
-                 "x":608.5,
-                 "y":224.5
+                 "x":673.166666666667,
+                 "y":225.166666666667
                 }],
          "opacity":1,
          "properties":
