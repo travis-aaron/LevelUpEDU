@@ -3,12 +3,12 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "public/assets/tilemaps/Classroom.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
         ".",
         "public/assets",
-        "public",
-        "public/assets/tilemaps"
+        "public/assets/tilemaps",
+        "public"
     ],
     "fileStates": {
         "": {
@@ -42,15 +42,15 @@
             "scaleInEditor": 1
         }
     },
-    "last.exportedFilePath": "/home/travis/Documents/Courses/Term 4/COMP 4800 - Projects Practicum 2/Prototype/LevelUpEDU Prototype/public/assets/tilemaps",
+    "last.exportedFilePath": "/home/travis/Documents/Courses/Term 4/COMP 4800 - Projects Practicum 2/Prototype/LevelUpEDU Prototype/src/data/maps",
     "last.externalTilesetPath": "/home/travis/Documents/Courses/Term 4/COMP 4800 - Projects Practicum 2/Prototype/LevelUpEDU Prototype/public/assets/tilemaps",
     "last.imagePath": "/home/travis/Documents/Courses/Term 4/COMP 4800 - Projects Practicum 2/Prototype/LevelUpEDU Prototype/public/assets/tilemaps",
+    "last.objectTypesPath": "/home/travis/Documents/Courses/Term 4/COMP 4800 - Projects Practicum 2/Prototype/LevelUpEDU Prototype/Tiled Projects/propertytypes.json",
     "map.height": 20,
     "map.lastUsedExportFilter": "JSON map files [Tiled 1.1] (*.json)",
     "map.lastUsedFormat": "tmx",
     "map.width": 25,
     "openFiles": [
-        "public/assets/tilemaps/Classroom.tmx"
     ],
     "project": "LevelUpEDU.tiled-project",
     "property.type": "bool",

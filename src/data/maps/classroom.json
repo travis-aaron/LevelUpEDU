@@ -406,17 +406,6 @@
                  "y":278
                 }, 
                 {
-                 "height":60.5,
-                 "id":45,
-                 "name":"collisions",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":47,
-                 "x":623.5,
-                 "y":224.5
-                }, 
-                {
                  "height":32,
                  "id":46,
                  "name":"collisions",
@@ -507,7 +496,7 @@
                 {
                  "height":72,
                  "id":54,
-                 "name":"",
+                 "name":"collisions",
                  "rotation":0,
                  "type":"",
                  "visible":false,
@@ -516,17 +505,40 @@
                  "y":65.6667
                 }, 
                 {
-                 "height":62.75,
-                 "id":119,
+                 "height":137.5,
+                 "id":120,
                  "name":"collisions",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":63,
-                 "x":608.5,
-                 "y":223.291666666667
+                 "width":38,
+                 "x":19,
+                 "y":363
+                }, 
+                {
+                 "height":26.5,
+                 "id":121,
+                 "name":"collisions",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":29,
+                 "x":22,
+                 "y":500.5
+                }, 
+                {
+                 "height":63.5,
+                 "id":122,
+                 "name":"collisions",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":104,
+                 "x":444,
+                 "y":66.5
                 }],
          "opacity":1,
+         "tintcolor":"#c01c28",
          "type":"objectgroup",
          "visible":true,
          "x":0,
@@ -538,24 +550,34 @@
          "name":"Interactable",
          "objects":[
                 {
-                 "height":62.75,
+                 "height":64,
                  "id":118,
                  "name":"chalkboard",
+                 "properties":
+                    {
+                     "passable":false
+                    },
+                 "propertytypes":
+                    {
+                     "passable":"bool"
+                    },
                  "rotation":90,
-                 "type":"",
+                 "type":"Interactable",
                  "visible":true,
-                 "width":63,
-                 "x":673.166666666667,
-                 "y":225.166666666667
+                 "width":64,
+                 "x":672,
+                 "y":224
                 }],
          "opacity":1,
          "properties":
             {
-             "active":true
+             "active":true,
+             "passable":false
             },
          "propertytypes":
             {
-             "active":"bool"
+             "active":"bool",
+             "passable":"bool"
             },
          "type":"objectgroup",
          "visible":true,
@@ -711,7 +733,7 @@
          "y":0
         }],
  "nextlayerid":24,
- "nextobjectid":120,
+ "nextobjectid":123,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",

@@ -70,4 +70,7 @@ export interface TiledObject {
     rotation: number
     type: string
     gid?: number
+    properties?: {
+        passable?: boolean
+    }
 }

@@ -1,5 +1,6 @@
-import type { MapConfig, GameScene, TiledObjectLayer, MovementState } from '@/types'
-
+import type { MapConfig, GameScene, TiledObject, TiledObjectLayer, MovementState } from '@/types'
+import { createCollisionBox } from '@/utils/physics'
+import { addPulseEffect } from '@/utils/sprites'
 interface SpriteManifest {
     sprites: string[]
 }
@@ -80,21 +81,32 @@ export class Scene extends Phaser.Scene implements GameScene {
     *      ]
     *    }
     */
-    protected addSpriteToScene(name: string, x: number, y: number, rotation?: number): Phaser.GameObjects.Image | null {
-        if (this.spriteObjects.has(name)) {
-            const key = `${this.sceneName}-${name}`
-            const sprite = this.add.image(x, y, key)
+    protected addSpriteToScene(obj: TiledObject): Phaser.GameObjects.Image | null {
+        if (!obj.name) return null
 
-            if (rotation !== undefined) {
-                sprite.setRotation(rotation)
+        if (this.spriteObjects.has(obj.name)) {
+            const key = `${this.sceneName}-${obj.name}`
+            const sprite = this.add.image(obj.x, obj.y, key)
+
+            if (obj.rotation) {
+                // convert Tiled degrees to radians for Phaser
+                const rotationRadians = Phaser.Math.DegToRad(obj.rotation)
+
+                // rotate around bottom left corner
+                sprite.setOrigin(0, 1)
+                sprite.setRotation(rotationRadians)
+
+                sprite.setPosition(obj.x, obj.y + sprite.height)
+            } else {
+                sprite.setOrigin(0, 0)
             }
+
             return sprite
         } else {
-            console.log(`No sprite exists with name ${name}`)
+            console.warn(`Sprite '${obj.name}' not available for ${this.sceneName} scene`)
             return null
         }
     }
-
 
     protected createMap(): void {
         this.map = this.add.tilemap('map')
@@ -123,20 +135,6 @@ export class Scene extends Phaser.Scene implements GameScene {
         this.player = this.physics.add.sprite(400, 300, 'bob')
         this.player.setScale(2)
     }
-    protected createInteractables(): void {
-        const interactableLayer = this.map.getObjectLayer('Interactable') as TiledObjectLayer | null
-
-        if (interactableLayer) {
-            interactableLayer.objects.forEach(obj => {
-                const sprite = this.addSpriteToScene(obj.name, obj.x, obj.y, obj.rotation)
-
-                if (sprite) {
-                    sprite.setOrigin(0, 0)
-                    sprite.setInteractive()
-                }
-            })
-        }
-    }
 
     protected createCollisions(): void {
         const collisionLayer = this.map.getObjectLayer('Collisions') as TiledObjectLayer | null
@@ -146,20 +144,53 @@ export class Scene extends Phaser.Scene implements GameScene {
 
             collisionLayer.objects.forEach(obj => {
                 if (obj.width > 0 && obj.height > 0 && obj.visible) {
-                    const collisionRect = this.add.rectangle(
+                    const collisionRect = createCollisionBox(
+                        this,
                         obj.x + obj.width / 2,
                         obj.y + obj.height / 2,
                         obj.width,
-                        obj.height,
-                        0xff0000, // bright red - useful for debug
-                        0 // invisible by default
+                        obj.height
                     )
-                    this.physics.add.existing(collisionRect, true)
                     this.collisionGroup.add(collisionRect)
                 }
             })
 
             this.physics.add.collider(this.player, this.collisionGroup)
+        }
+    }
+
+    protected createInteractables(): void {
+        const interactableLayer = this.map.getObjectLayer('Interactable') as TiledObjectLayer | null
+
+        if (interactableLayer) {
+            interactableLayer.objects.forEach(obj => {
+                const sprite = this.addSpriteToScene(obj)
+                if (sprite) {
+                    sprite.setInteractive()
+
+                    addPulseEffect(this, sprite)
+                    const isPassable = obj.properties?.passable ?? true
+
+                    if (!isPassable) {
+                        if (!this.collisionGroup) {
+                            this.collisionGroup = this.physics.add.staticGroup()
+                            this.physics.add.collider(this.player, this.collisionGroup)
+                        }
+
+                        // create a rect overtop of the object and use it to create a collision box
+                        const bounds = sprite.getBounds()
+                        const collisionRect = createCollisionBox(
+                            this,
+                            bounds.centerX,
+                            bounds.centerY,
+                            bounds.width,
+                            bounds.height
+                        )
+
+                        this.collisionGroup.add(collisionRect)
+                    }
+                }
+            })
         }
     }
 
