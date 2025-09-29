@@ -81,6 +81,12 @@ export default function GameComponent() {
                     pixelArt: true,
                     antialias: false
                 },
+                scale: {
+                    mode: Phaser.Scale.ENVELOP,
+                    autoCenter: Phaser.Scale.CENTER_BOTH,
+                    width: 800,
+                    height: 600
+                },
                 physics: {
                     default: 'arcade', // default physics since we don't need gravity
                     arcade: {

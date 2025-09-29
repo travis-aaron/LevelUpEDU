@@ -45,9 +45,10 @@ function InstallPrompt() {
         }
     }
 
-    if (isStandalone) {
+    if (isStandalone || (!deferredPrompt && !isIOS)) {
         return null
     }
+
 
     return (
         <div style={{
