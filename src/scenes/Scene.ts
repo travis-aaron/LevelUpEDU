@@ -36,7 +36,8 @@ export class Scene extends Phaser.Scene implements GameScene {
     preload(): void {
         // get the list of sprite objects for this scene
         const manifestKey = `${this.sceneName}-sprites`
-        this.load.json(manifestKey, `/assets/sprites/${this.sceneName}/manifest.json`)
+        const cacheBuster = Date.now()
+        this.load.json(manifestKey, `/assets/sprites/${this.sceneName}/manifest.json?v=${cacheBuster}`)
 
         this.load.on(`filecomplete-json-${manifestKey}`, () => {
             const manifest: SpriteManifest = this.cache.json.get(manifestKey)
