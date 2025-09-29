@@ -34,10 +34,14 @@ export class Scene extends Phaser.Scene implements GameScene {
     }
 
     preload(): void {
+
         // get the list of sprite objects for this scene
         const manifestKey = `${this.sceneName}-sprites`
-        const cacheBuster = Date.now()
-        this.load.json(manifestKey, `/assets/sprites/${this.sceneName}/manifest.json?v=${cacheBuster}`)
+
+        // TODO: replace with build-time version numbers in production
+        // invalidates cache and forces reload of assets 
+        const cacheBuster = process.env.NODE_ENV === 'development' ? `?v=${Date.now()}` : ''
+        this.load.json(manifestKey, `/assets/sprites/${this.sceneName}/manifest.json${cacheBuster}`)
 
         this.load.on(`filecomplete-json-${manifestKey}`, () => {
             const manifest: SpriteManifest = this.cache.json.get(manifestKey)
@@ -180,7 +184,11 @@ export class Scene extends Phaser.Scene implements GameScene {
                 if (sprite) {
                     sprite.setInteractive()
 
-                    addPulseEffect(this, sprite)
+                    const pulseColor = obj.properties?.pulseColor
+                        ? parseInt(obj.properties.pulseColor.replace('#', '0x'))
+                        : undefined
+
+                    addPulseEffect(this, sprite, pulseColor)
                     this.interactionHandler.createInteractionFromTiled(obj, sprite)
                     const isPassable = obj.properties?.passable ?? true
 

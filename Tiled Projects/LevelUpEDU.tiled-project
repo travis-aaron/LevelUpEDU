@@ -35,6 +35,11 @@
                     "value": false
                 },
                 {
+                    "name": "pulseColor",
+                    "type": "string",
+                    "value": ""
+                },
+                {
                     "name": "tooltip",
                     "type": "string",
                     "value": ""

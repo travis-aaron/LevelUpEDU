@@ -75,6 +75,7 @@ export interface TiledObject {
         eventType?: string
         active?: boolean
         displayName?: string
+        pulseColor?: string
         tooltip?: string
         [key: string]: any
     }

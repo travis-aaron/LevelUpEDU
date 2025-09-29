@@ -69,6 +69,7 @@
     <property name="displayName" value="Chalkboard"/>
     <property name="eventType" value="chalkboard"/>
     <property name="passable" type="bool" value="false"/>
+    <property name="pulseColor" value=""/>
     <property name="tooltip" value="Press E to interact"/>
    </properties>
   </object>
@@ -78,6 +79,7 @@
     <property name="displayName" value="Desk"/>
     <property name="eventType" value="desk"/>
     <property name="passable" type="bool" value="false"/>
+    <property name="pulseColor" value="0xe57373"/>
     <property name="tooltip" value="Press E to interact"/>
    </properties>
   </object>

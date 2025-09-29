@@ -547,6 +547,7 @@
                      "displayName":"Chalkboard",
                      "eventType":"chalkboard",
                      "passable":false,
+                     "pulseColor":"",
                      "tooltip":"Press E to interact"
                     },
                  "propertytypes":
@@ -555,6 +556,7 @@
                      "displayName":"string",
                      "eventType":"string",
                      "passable":"bool",
+                     "pulseColor":"string",
                      "tooltip":"string"
                     },
                  "rotation":90,
@@ -574,6 +576,7 @@
                      "displayName":"Desk",
                      "eventType":"desk",
                      "passable":false,
+                     "pulseColor":"0xe57373",
                      "tooltip":"Press E to interact"
                     },
                  "propertytypes":
@@ -582,6 +585,7 @@
                      "displayName":"string",
                      "eventType":"string",
                      "passable":"bool",
+                     "pulseColor":"string",
                      "tooltip":"string"
                     },
                  "rotation":270,
