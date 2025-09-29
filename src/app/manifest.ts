@@ -7,6 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
         description: 'Gamified learning platform',
         start_url: '/game',
         display: 'standalone',
+        orientation: 'landscape',
         background_color: '#ffffff',
         theme_color: '#000000',
         icons: [
