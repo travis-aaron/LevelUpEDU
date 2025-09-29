@@ -73,33 +73,34 @@ export default function GameComponent() {
 
             // check device
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-            const scaleMode = isMobile ? Phaser.Scale.FIT : Phaser.Scale.HEIGHT_CONTROLS_WIDTH
+            const scaleMode = isMobile ? Phaser.Scale.FIT : Phaser.Scale.FIT
 
-            gameInstance = new Phaser.Game({
+            const config = {
                 type: Phaser.WEBGL,
-                width: 800,
-                height: 600,
-                backgroundColor: '#1a1a24',
                 parent: gameRef.current,
+                backgroundColor: '#1a1a24',
                 render: {
                     pixelArt: true,
                     antialias: false
                 },
                 scale: {
-                    mode: scaleMode,
+                    mode: Phaser.Scale.FIT,
                     autoCenter: Phaser.Scale.CENTER_BOTH,
                     width: 800,
-                    height: 600
+                    height: 600,
+                    parent: gameRef.current
                 },
                 physics: {
-                    default: 'arcade', // default physics since we don't need gravity
+                    default: 'arcade',
                     arcade: {
                         gravity: { y: 0, x: 0 },
                         debug: false
                     }
                 },
                 scene: Classroom
-            })
+            }
+
+            gameInstance = new Phaser.Game(config)
         }
 
         initGame()
@@ -116,5 +117,33 @@ export default function GameComponent() {
         return null
     }
 
-    return <div ref={gameRef} />
+
+    return (
+        <div
+            style={{
+                width: '100vw',
+                height: '100vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: '#1a1a24',
+                margin: 0,
+                padding: 0,
+                overflow: 'hidden',
+                position: 'fixed',
+                top: 0,
+                left: 0
+            }}
+        >
+            <div
+                ref={gameRef}
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    maxWidth: '100vw',
+                    maxHeight: '100vh'
+                }}
+            />
+        </div>
+    )
 }
