@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "Classroom.tmx",
     "expandedProjectPaths": [
         ".",
         "public/assets",
@@ -12,6 +12,7 @@
     ],
     "fileStates": {
         "": {
+            "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "#Interiors_free_32x32": {
@@ -19,6 +20,20 @@
             "scaleInEditor": 2
         },
         "#Room_Builder_free_32x32": {
+            "scaleInDock": 1
+        },
+        "Classroom.tmx": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 489,
+                "y": 311.25
+            }
+        },
+        "Classroom.tmx#Interiors_free_32x32": {
+            "scaleInDock": 1
+        },
+        "Classroom.tmx#Room_Builder_free_32x32": {
             "scaleInDock": 1
         },
         "public/assets/tilemaps/Classroom.tmx": {
@@ -51,10 +66,12 @@
     "map.lastUsedFormat": "tmx",
     "map.width": 25,
     "openFiles": [
+        "Classroom.tmx"
     ],
     "project": "LevelUpEDU.tiled-project",
     "property.type": "string",
     "recentFiles": [
+        "Classroom.tmx",
         "public/assets/tilemaps/Classroom.tmx",
         "public/assets/tilemaps/Room_Builder_free_32x32.tsx"
     ],
