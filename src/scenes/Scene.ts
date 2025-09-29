@@ -1,20 +1,51 @@
 import type { MapConfig, GameScene, TiledObjectLayer, MovementState } from '@/types'
 
+interface SpriteManifest {
+    sprites: string[]
+}
+
 export class Scene extends Phaser.Scene implements GameScene {
-    public player!: Phaser.Physics.Arcade.Sprite
-    public cursors!: Phaser.Types.Input.Keyboard.CursorKeys
-    public collisionGroup!: Phaser.Physics.Arcade.StaticGroup
+    protected sceneName: string
+
+    // map objects
+    protected map: Phaser.Tilemaps.Tilemap
     protected mapConfig: MapConfig
+    protected spriteObjects: Set<string> = new Set()
+    public collisionGroup!: Phaser.Physics.Arcade.StaticGroup
+
+    public player!: Phaser.Physics.Arcade.Sprite
+
+    // input objects
+    public cursors!: Phaser.Types.Input.Keyboard.CursorKeys
     protected movementState!: MovementState
-    protected map: Phaser.Tilemaps.Tilemap;
 
     // key is the name of the map, ie "classroom"
     constructor(key: string, mapConfig: MapConfig) {
         super({ key })
         this.mapConfig = mapConfig
+        this.sceneName = key
     }
 
     preload(): void {
+        // get the list of sprite objects for this scene
+        const manifestKey = `${this.sceneName}-sprites`
+        this.load.json(manifestKey, `/assets/sprites/${this.sceneName}/manifest.json`)
+
+        this.load.on(`filecomplete-json-${manifestKey}`, () => {
+            const manifest: SpriteManifest = this.cache.json.get(manifestKey)
+
+            // load the objects
+            if (manifest && manifest.sprites) {
+                manifest.sprites.forEach(spriteName => {
+                    const key = `${this.sceneName}-${spriteName}`
+                    this.load.image(key, `/assets/sprites/${this.sceneName}/${spriteName}.png`)
+                    this.spriteObjects.add(spriteName)
+                })
+
+                this.load.start()
+            }
+        })
+
         // tilesets
         this.mapConfig.tilesets.forEach(tileset => {
             this.load.image(tileset.key, tileset.imagePath)
@@ -37,6 +68,7 @@ export class Scene extends Phaser.Scene implements GameScene {
         this.createMap()
         this.createPlayer()
         this.createCollisions()
+        this.createInteractables()
         this.setupInput()
     }
 
@@ -70,7 +102,17 @@ export class Scene extends Phaser.Scene implements GameScene {
         this.player.setScale(2)
     }
     protected createInteractables(): void {
+        const interactableLayer = this.map.getObjectLayer('Interactable') as TiledObjectLayer | null
 
+        console.log(interactableLayer)
+
+
+        if (interactableLayer) {
+            interactableLayer.objects.forEach(obj => {
+                console.log(obj.name)
+                console.log(obj.x, obj.y)
+            })
+        }
     }
 
     protected createCollisions(): void {

@@ -41,15 +41,15 @@
                  "y":2
                 }, 
                 {
-                 "height":62.3333333333333,
+                 "height":62.3333,
                  "id":9,
                  "name":"collisions",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":50.3333333333334,
-                 "x":736.666666666667,
-                 "y":0.666666666666667
+                 "width":50.3333,
+                 "x":736.667,
+                 "y":0.666667
                 }, 
                 {
                  "height":62,
@@ -85,15 +85,15 @@
                  "y":0
                 }, 
                 {
-                 "height":164.666666666667,
+                 "height":164.667,
                  "id":14,
                  "name":"collisions",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":41.3333333333333,
+                 "width":41.3333,
                  "x":16,
-                 "y":107.333333333333
+                 "y":107.333
                 }, 
                 {
                  "height":39,
@@ -103,22 +103,22 @@
                  "type":"",
                  "visible":true,
                  "width":20,
-                 "x":69.6666666666667,
-                 "y":98.3333333333333
+                 "x":69.6667,
+                 "y":98.3333
                 }, 
                 {
-                 "height":45.3333333333333,
+                 "height":45.3333,
                  "id":16,
                  "name":"collisions",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":23.6666666666667,
-                 "x":24.6666666666667,
-                 "y":55.6666666666667
+                 "width":23.6667,
+                 "x":24.6667,
+                 "y":55.6667
                 }, 
                 {
-                 "height":40.3333333333333,
+                 "height":40.3333,
                  "id":17,
                  "name":"collisions",
                  "rotation":0,
@@ -126,7 +126,7 @@
                  "visible":true,
                  "width":23,
                  "x":154,
-                 "y":67.6666666666667
+                 "y":67.6667
                 }, 
                 {
                  "height":42,
@@ -135,30 +135,30 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":23.6666666666667,
-                 "x":67.6666666666667,
-                 "y":160.333333333333
+                 "width":23.6667,
+                 "x":67.6667,
+                 "y":160.333
                 }, 
                 {
-                 "height":39.3333333333333,
+                 "height":39.3333,
                  "id":19,
                  "name":"collisions",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":25.6666666666667,
+                 "width":25.6667,
                  "x":65,
-                 "y":385.333333333333
+                 "y":385.333
                 }, 
                 {
-                 "height":45.3333333333333,
+                 "height":45.3333,
                  "id":20,
                  "name":"collisions",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":29.3333333333333,
-                 "x":21.6666666666667,
+                 "width":29.3333,
+                 "x":21.6667,
                  "y":310
                 }, 
                 {
@@ -168,8 +168,8 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":25.3333333333333,
-                 "x":67.3333333333333,
+                 "width":25.3333,
+                 "x":67.3333,
                  "y":448
                 }, 
                 {
@@ -179,9 +179,9 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":26.6666666666667,
-                 "x":150.333333333333,
-                 "y":512.666666666667
+                 "width":26.6667,
+                 "x":150.333,
+                 "y":512.667
                 }, 
                 {
                  "height":45,
@@ -422,19 +422,19 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":30.6666666666667,
-                 "x":193.333333333333,
-                 "y":145.333333333333
+                 "width":30.6667,
+                 "x":193.333,
+                 "y":145.333
                 }, 
                 {
-                 "height":29.3333333333333,
+                 "height":29.3333,
                  "id":47,
                  "name":"collisions",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":28,
-                 "x":258.666666666667,
+                 "x":258.667,
                  "y":146
                 }, 
                 {
@@ -444,51 +444,51 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":24.6666666666666,
+                 "width":24.6667,
                  "x":304,
-                 "y":65.3333333333333
+                 "y":65.3333
                 }, 
                 {
-                 "height":76.3333333333333,
+                 "height":76.3333,
                  "id":49,
                  "name":"collisions",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":107.333333333333,
-                 "x":187.666666666667,
+                 "width":107.333,
+                 "x":187.667,
                  "y":65
                 }, 
                 {
-                 "height":34.6666666666667,
+                 "height":34.6667,
                  "id":50,
                  "name":"collisions",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":30.6666666666667,
-                 "x":448.666666666667,
-                 "y":143.666666666667
+                 "width":30.6667,
+                 "x":448.667,
+                 "y":143.667
                 }, 
                 {
-                 "height":28.3333333333333,
+                 "height":28.3333,
                  "id":51,
                  "name":"collisions",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":29,
-                 "x":513.666666666667,
-                 "y":146.333333333333
+                 "x":513.667,
+                 "y":146.333
                 }, 
                 {
-                 "height":41.3333333333333,
+                 "height":41.3333,
                  "id":52,
                  "name":"collisions",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":21.6666666666666,
+                 "width":21.6667,
                  "x":561,
                  "y":65
                 }, 
@@ -499,9 +499,9 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":25.6666666666667,
-                 "x":408.666666666667,
-                 "y":65.6666666666667
+                 "width":25.6667,
+                 "x":408.667,
+                 "y":65.6667
                 }, 
                 {
                  "height":72,
@@ -510,22 +510,52 @@
                  "rotation":0,
                  "type":"",
                  "visible":false,
-                 "width":109.333333333333,
-                 "x":441.333333333333,
-                 "y":65.6666666666667
+                 "width":109.333,
+                 "x":441.333,
+                 "y":65.6667
                 }, 
                 {
-                 "height":0,
-                 "id":56,
+                 "height":62.75,
+                 "id":119,
                  "name":"collisions",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
-                 "x":630,
-                 "y":789
+                 "width":63,
+                 "x":608.5,
+                 "y":223.291666666667
                 }],
          "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":23,
+         "name":"Interactable",
+         "objects":[
+                {
+                 "height":62.75,
+                 "id":118,
+                 "name":"chalkboard",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":63,
+                 "x":608.5,
+                 "y":224.5
+                }],
+         "opacity":1,
+         "properties":
+            {
+             "active":true
+            },
+         "propertytypes":
+            {
+             "active":"bool"
+            },
          "type":"objectgroup",
          "visible":true,
          "x":0,
@@ -605,7 +635,7 @@
         }, 
         {
          "compression":"",
-         "data":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQQAABYEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACUEAAAmBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiBACgEgQAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPEDAGABBABgAAAAAAAAAAAAAAAAIwQAoBMEAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwAwBgAAQAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA7wMAYP8DAGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+         "data":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQQAABYEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACUEAAAmBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPEDAGABBABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwAwBgAAQAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA7wMAYP8DAGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
          "encoding":"base64",
          "height":20,
          "id":13,
@@ -679,8 +709,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":23,
- "nextobjectid":116,
+ "nextlayerid":24,
+ "nextobjectid":120,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
@@ -689,7 +719,7 @@
         {
          "columns":17,
          "firstgid":1,
-         "image":"Room_Builder_free_32x32.png",
+         "image":"..\/..\/..\/public\/assets\/tilemaps\/Room_Builder_free_32x32.png",
          "imageheight":736,
          "imagewidth":544,
          "margin":0,
@@ -702,7 +732,7 @@
         {
          "columns":16,
          "firstgid":392,
-         "image":"Interiors_free_32x32.png",
+         "image":"..\/..\/..\/public\/assets\/tilemaps\/Interiors_free_32x32.png",
          "imageheight":2848,
          "imagewidth":512,
          "margin":0,
