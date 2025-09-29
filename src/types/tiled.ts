@@ -72,5 +72,10 @@ export interface TiledObject {
     gid?: number
     properties?: {
         passable?: boolean
+        eventType?: string
+        active?: boolean
+        displayName?: string
+        tooltip?: string
+        [key: string]: any
     }
 }

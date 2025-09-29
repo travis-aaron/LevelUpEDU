@@ -53,7 +53,7 @@
     "openFiles": [
     ],
     "project": "LevelUpEDU.tiled-project",
-    "property.type": "bool",
+    "property.type": "string",
     "recentFiles": [
         "public/assets/tilemaps/Classroom.tmx",
         "public/assets/tilemaps/Room_Builder_free_32x32.tsx"

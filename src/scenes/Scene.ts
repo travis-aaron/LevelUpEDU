@@ -2,6 +2,8 @@ import type { MapConfig, GameScene, TiledObject, TiledObjectLayer, MovementState
 import { createCollisionBox } from '@/utils/physics'
 import { addPulseEffect } from '@/utils/sprites'
 import { InputHandler } from '@/utils/inputHandler'
+import { InteractionHandler } from '@/interactions/interactionHandler'
+import '@/interactions'
 
 interface SpriteManifest {
     sprites: string[]
@@ -17,6 +19,7 @@ export class Scene extends Phaser.Scene implements GameScene {
     public collisionGroup!: Phaser.Physics.Arcade.StaticGroup
 
     private inputHandler!: InputHandler
+    private interactionHandler!: InteractionHandler
     public player!: Phaser.Physics.Arcade.Sprite
 
     // input objects
@@ -72,9 +75,11 @@ export class Scene extends Phaser.Scene implements GameScene {
         this.createMap()
         this.createPlayer()
         this.createCollisions()
+        this.inputHandler = new InputHandler(this, 100)
+        this.interactionHandler = new InteractionHandler(this)
+
         this.createInteractables()
 
-        this.inputHandler = new InputHandler(this, 100)
         this.setupInput()
     }
 
@@ -166,6 +171,7 @@ export class Scene extends Phaser.Scene implements GameScene {
 
     protected createInteractables(): void {
         const interactableLayer = this.map.getObjectLayer('Interactable') as TiledObjectLayer | null
+        console.log(interactableLayer)
 
         if (interactableLayer) {
             interactableLayer.objects.forEach(obj => {
@@ -174,6 +180,7 @@ export class Scene extends Phaser.Scene implements GameScene {
                     sprite.setInteractive()
 
                     addPulseEffect(this, sprite)
+                    this.interactionHandler.createInteractionFromTiled(obj, sprite)
                     const isPassable = obj.properties?.passable ?? true
 
                     if (!isPassable) {
@@ -201,8 +208,12 @@ export class Scene extends Phaser.Scene implements GameScene {
 
     protected setupInput(): void {
         this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-            this.inputHandler.setTargetPosition(pointer.worldX, pointer.worldY)
+            const shouldMove = this.interactionHandler.handlePointerPress(pointer)
+            if (shouldMove) {
+                this.inputHandler.setTargetPosition(pointer.worldX, pointer.worldY)
+            }
         })
+
 
         this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
             this.inputHandler.updateTargetPosition(pointer.worldX, pointer.worldY)
@@ -224,7 +235,14 @@ export class Scene extends Phaser.Scene implements GameScene {
 
     update(): void {
         if (!this.player) return
+        if (this.interactionHandler.isMovementBlocked()) {
+            const body = this.player.body as Phaser.Physics.Arcade.Body
+            body.setVelocity(0, 0)
+            this.player.stop()
+            return
+        }
 
         this.inputHandler.update(this.player)
+        this.interactionHandler.update()
     }
 }

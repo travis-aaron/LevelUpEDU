@@ -15,9 +15,29 @@
             "id": 1,
             "members": [
                 {
+                    "name": "active",
+                    "type": "bool",
+                    "value": true
+                },
+                {
+                    "name": "displayName",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "eventType",
+                    "type": "string",
+                    "value": ""
+                },
+                {
                     "name": "passable",
                     "type": "bool",
                     "value": false
+                },
+                {
+                    "name": "tooltip",
+                    "type": "string",
+                    "value": ""
                 }
             ],
             "name": "Interactable",
