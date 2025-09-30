@@ -25,7 +25,9 @@
         "dev": "node log.js dev & next dev -p 8080",
         "build": "node log.js build & next build",
         "dev-nolog": "next dev -p 8080",
-        "build-nolog": "next build"
+        "build-nolog": "next build",
+        "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+        "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\""
     },
     "dependencies": {
         "next": "15.3.1",
@@ -38,6 +40,8 @@
         "@types/node": "^20.19.17",
         "@types/react": "^19.1.15",
         "@types/react-dom": "^19.1.9",
+        "eslint-config-prettier": "^10.1.8",
+        "prettier": "^3.6.2",
         "typescript": "^5.9.2"
     }
 }
