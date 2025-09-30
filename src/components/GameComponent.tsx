@@ -49,6 +49,7 @@ import styles from './GameComponent.module.css'
  *
  */
 
+	    export const formatTest=(a:number,b:number)=>{const result=a+b;return result;};
 export default function GameComponent() {
     // create a placeholder reference, the div won't exist just yet
     const gameRef = useRef<HTMLDivElement>
@@ -69,7 +70,6 @@ export default function GameComponent() {
 
         const initGame = async () => {
             const Phaser = await import('phaser')
-	    export const formatTest=(a:number,b:number)=>{const result=a+b;return result;};
             // default scene to load
             const {Classroom} = await import('@/scenes/Classroom')
 
