@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import {useEffect, useRef, useState} from 'react'
 import styles from './GameComponent.module.css'
 
 /*
@@ -70,7 +70,7 @@ export default function GameComponent() {
             const Phaser = await import('phaser')
 
             // default scene to load
-            const { Classroom } = await import('@/scenes/Classroom')
+            const {Classroom} = await import('@/scenes/Classroom')
 
             const config = {
                 type: Phaser.WEBGL,
@@ -90,7 +90,7 @@ export default function GameComponent() {
                 physics: {
                     default: 'arcade',
                     arcade: {
-                        gravity: { y: 0, x: 0 },
+                        gravity: {y: 0, x: 0},
                         debug: false,
                     },
                 },
@@ -116,10 +116,7 @@ export default function GameComponent() {
 
     return (
         <div className={styles.container}>
-            <div
-                ref={gameRef}
-                className={styles.gameCanvas}
-            />
+            <div ref={gameRef} className={styles.gameCanvas} />
         </div>
     )
 }

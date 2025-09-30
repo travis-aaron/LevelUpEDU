@@ -1,6 +1,6 @@
-import type { Scene } from '@/scenes/Scene'
-import type { TiledObject } from '@/types'
-import { interactionRegistry } from './interactionRegistry'
+import type {Scene} from '@/scenes/Scene'
+import type {TiledObject} from '@/types'
+import {interactionRegistry} from './interactionRegistry'
 
 export interface InteractionConfig {
     name: string
@@ -27,14 +27,13 @@ export class InteractionHandler {
             Phaser.Input.Keyboard.KeyCodes.E
         )
 
-
         // Create UI elements
         this.nameTagText = scene.add
             .text(0, 0, '', {
                 fontSize: '16px',
                 color: '#ffffff',
                 backgroundColor: '#000000',
-                padding: { x: 8, y: 4 },
+                padding: {x: 8, y: 4},
             })
             .setVisible(false)
             .setDepth(1000)
@@ -44,7 +43,7 @@ export class InteractionHandler {
                 fontSize: '14px',
                 color: '#ffff00',
                 backgroundColor: '#333333',
-                padding: { x: 6, y: 3 },
+                padding: {x: 6, y: 3},
             })
             .setVisible(false)
             .setDepth(1001)
@@ -60,10 +59,9 @@ export class InteractionHandler {
     }
 
     private getConfigFromObject(obj: unknown): InteractionConfig | undefined {
-        const gameObj = obj as { getData?: (key: string) => unknown }
+        const gameObj = obj as {getData?: (key: string) => unknown}
         return gameObj.getData?.('config') as InteractionConfig | undefined
     }
-
 
     public blockMovement(): void {
         this.isInterfaceOpen = true
@@ -119,7 +117,11 @@ export class InteractionHandler {
 
         if (this.currentInteractionObject !== rectObject) {
             this.currentInteractionObject = rectObject
-            this.showNameTag(config.name, rectObject.x, rectObject.y - rectObject.height / 2 - 30)
+            this.showNameTag(
+                config.name,
+                rectObject.x,
+                rectObject.y - rectObject.height / 2 - 30
+            )
 
             if (config.canInteract) {
                 this.showInteractionPrompt(

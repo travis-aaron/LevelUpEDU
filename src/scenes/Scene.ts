@@ -5,10 +5,10 @@ import type {
     TiledObjectLayer,
     MovementState,
 } from '@/types'
-import { createCollisionBox } from '@/utils/physics'
-import { addPulseEffect } from '@/utils/sprites'
-import { InputHandler } from '@/utils/inputHandler'
-import { InteractionHandler } from '@/interactions/interactionHandler'
+import {createCollisionBox} from '@/utils/physics'
+import {addPulseEffect} from '@/utils/sprites'
+import {InputHandler} from '@/utils/inputHandler'
+import {InteractionHandler} from '@/interactions/interactionHandler'
 import '@/interactions'
 
 interface SpriteManifest {
@@ -34,7 +34,7 @@ export class Scene extends Phaser.Scene implements GameScene {
 
     // key is the name of the map, ie "classroom"
     constructor(key: string, mapConfig: MapConfig) {
-        super({ key })
+        super({key})
         this.mapConfig = mapConfig
         this.sceneName = mapConfig.name
     }
@@ -212,7 +212,7 @@ export class Scene extends Phaser.Scene implements GameScene {
                             parseInt(
                                 obj.properties.pulseColor.replace('#', '0x')
                             )
-                            : undefined
+                        :   undefined
 
                     addPulseEffect(this, sprite, pulseColor)
                     this.interactionHandler.createInteractionFromTiled(

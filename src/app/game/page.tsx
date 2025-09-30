@@ -1,10 +1,10 @@
 'use client'
 import dynamic from 'next/dynamic'
-import { useState, useEffect } from 'react'
+import {useState, useEffect} from 'react'
 
 interface PreInstallPromptEvent extends Event {
     prompt: () => Promise<void>
-    userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>
+    userChoice: Promise<{outcome: 'accepted' | 'dismissed'}>
 }
 
 declare global {
@@ -73,11 +73,11 @@ const styles = {
 function InstallPrompt() {
     const [isIOS, setIsIOS] = useState(false)
     const [isStandalone, setIsStandalone] = useState(false)
-    const [deferredPrompt, setDeferredPrompt] = useState<PreInstallPromptEvent | null>(null)
+    const [deferredPrompt, setDeferredPrompt] =
+        useState<PreInstallPromptEvent | null>(null)
     const [showPrompt, setShowPrompt] = useState(true)
 
     useEffect(() => {
-
         const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
         setIsIOS(iOS)
 
@@ -117,7 +117,7 @@ function InstallPrompt() {
         }
 
         deferredPrompt.prompt()
-        const { outcome } = await deferredPrompt.userChoice
+        const {outcome} = await deferredPrompt.userChoice
 
         if (outcome === 'accepted') {
             setDeferredPrompt(null)
@@ -131,20 +131,32 @@ function InstallPrompt() {
     return (
         <div style={styles.promptContainer}>
             {!isIOS && deferredPrompt && (
-                <button onClick={handleInstallClick} style={styles.installButton}>
+                <button
+                    onClick={handleInstallClick}
+                    style={styles.installButton}>
                     Install App
                 </button>
             )}
             {isIOS && (
                 <div style={styles.iosInstructions}>
-                    <button onClick={() => setShowPrompt(false)} style={styles.closeButton}>
+                    <button
+                        onClick={() => setShowPrompt(false)}
+                        style={styles.closeButton}>
                         ×
                     </button>
-                    <strong style={styles.instructionHeader}>Install LevelUpEDU</strong>
+                    <strong style={styles.instructionHeader}>
+                        Install LevelUpEDU
+                    </strong>
                     <p style={styles.instructionText}>
-                        1. Tap the Share button <span role="img" aria-label="share">⎋</span>
+                        1. Tap the Share button{' '}
+                        <span role="img" aria-label="share">
+                            ⎋
+                        </span>
                         <br />
-                        2. Select &quot;Add to Home Screen&quot;<span role="img" aria-label="add">➕</span>
+                        2. Select &quot;Add to Home Screen&quot;
+                        <span role="img" aria-label="add">
+                            ➕
+                        </span>
                     </p>
                 </div>
             )}

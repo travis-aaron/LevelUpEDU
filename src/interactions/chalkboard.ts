@@ -1,4 +1,4 @@
-import { interactionRegistry } from './interactionRegistry'
+import {interactionRegistry} from './interactionRegistry'
 
 interactionRegistry.register('chalkboard', (scene, _data?) => {
     scene.interactionHandler.blockMovement()
