@@ -1,8 +1,14 @@
-import type { MapConfig, GameScene, TiledObject, TiledObjectLayer, MovementState } from '@/types'
-import { createCollisionBox } from '@/utils/physics'
-import { addPulseEffect } from '@/utils/sprites'
-import { InputHandler } from '@/utils/inputHandler'
-import { InteractionHandler } from '@/interactions/interactionHandler'
+import type {
+    MapConfig,
+    GameScene,
+    TiledObject,
+    TiledObjectLayer,
+    MovementState,
+} from '@/types'
+import {createCollisionBox} from '@/utils/physics'
+import {addPulseEffect} from '@/utils/sprites'
+import {InputHandler} from '@/utils/inputHandler'
+import {InteractionHandler} from '@/interactions/interactionHandler'
 import '@/interactions'
 
 interface SpriteManifest {
@@ -19,7 +25,7 @@ export class Scene extends Phaser.Scene implements GameScene {
     public collisionGroup!: Phaser.Physics.Arcade.StaticGroup
 
     private inputHandler!: InputHandler
-    private interactionHandler!: InteractionHandler
+    public interactionHandler!: InteractionHandler
     public player!: Phaser.Physics.Arcade.Sprite
 
     // input objects
@@ -28,29 +34,35 @@ export class Scene extends Phaser.Scene implements GameScene {
 
     // key is the name of the map, ie "classroom"
     constructor(key: string, mapConfig: MapConfig) {
-        super({ key })
+        super({key})
         this.mapConfig = mapConfig
         this.sceneName = mapConfig.name
     }
 
     preload(): void {
-
         // get the list of sprite objects for this scene
         const manifestKey = `${this.sceneName}-sprites`
 
         // TODO: replace with build-time version numbers in production
-        // invalidates cache and forces reload of assets 
-        const cacheBuster = process.env.NODE_ENV === 'development' ? `?v=${Date.now()}` : ''
-        this.load.json(manifestKey, `/assets/sprites/${this.sceneName}/manifest.json${cacheBuster}`)
+        // invalidates cache and forces reload of assets
+        const cacheBuster =
+            process.env.NODE_ENV === 'development' ? `?v=${Date.now()}` : ''
+        this.load.json(
+            manifestKey,
+            `/assets/sprites/${this.sceneName}/manifest.json${cacheBuster}`
+        )
 
         this.load.on(`filecomplete-json-${manifestKey}`, () => {
             const manifest: SpriteManifest = this.cache.json.get(manifestKey)
 
             // load the objects
             if (manifest && manifest.sprites) {
-                manifest.sprites.forEach(spriteName => {
+                manifest.sprites.forEach((spriteName) => {
                     const key = `${this.sceneName}-${spriteName}`
-                    this.load.image(key, `/assets/sprites/${this.sceneName}/${spriteName}.png`)
+                    this.load.image(
+                        key,
+                        `/assets/sprites/${this.sceneName}/${spriteName}.png`
+                    )
                     this.spriteObjects.add(spriteName)
                 })
 
@@ -59,7 +71,7 @@ export class Scene extends Phaser.Scene implements GameScene {
         })
 
         // tilesets
-        this.mapConfig.tilesets.forEach(tileset => {
+        this.mapConfig.tilesets.forEach((tileset) => {
             this.load.image(tileset.key, tileset.imagePath)
         })
 
@@ -67,11 +79,17 @@ export class Scene extends Phaser.Scene implements GameScene {
         this.load.tilemapTiledJSON('map', this.mapConfig.tilemapPath)
 
         // player
-        this.load.aseprite('bob', '/assets/sprites/Bob_run_16x16-sheet.png', '/assets/sprites/Bob_run_16x16.json')
+        this.load.aseprite(
+            'bob',
+            '/assets/sprites/Bob_run_16x16-sheet.png',
+            '/assets/sprites/Bob_run_16x16.json'
+        )
 
         this.load.on('complete', () => {
-            this.mapConfig.tilesets.forEach(tileset => {
-                this.textures.get(tileset.key).setFilter(Phaser.Textures.FilterMode.NEAREST)
+            this.mapConfig.tilesets.forEach((tileset) => {
+                this.textures
+                    .get(tileset.key)
+                    .setFilter(Phaser.Textures.FilterMode.NEAREST)
             })
         })
     }
@@ -89,14 +107,16 @@ export class Scene extends Phaser.Scene implements GameScene {
     }
 
     /* for adding images - images are stored in /public/assets/sprites/{sceneName}/
-    * **must** be added to the manifest.json file in that folder - ie for "chalkboard.png":
-    *    {
-    *      "sprites": [
-    *        "chalkboard"
-    *      ]
-    *    }
-    */
-    protected addSpriteToScene(obj: TiledObject): Phaser.GameObjects.Image | null {
+     * **must** be added to the manifest.json file in that folder - ie for "chalkboard.png":
+     *    {
+     *      "sprites": [
+     *        "chalkboard"
+     *      ]
+     *    }
+     */
+    protected addSpriteToScene(
+        obj: TiledObject
+    ): Phaser.GameObjects.Image | null {
         if (!obj.name) return null
 
         if (this.spriteObjects.has(obj.name)) {
@@ -117,10 +137,8 @@ export class Scene extends Phaser.Scene implements GameScene {
             }
 
             return sprite
-        } else {
-            console.warn(`Sprite '${obj.name}' not available for ${this.sceneName} scene`)
-            return null
         }
+        return null
     }
 
     protected createMap(): void {
@@ -128,21 +146,23 @@ export class Scene extends Phaser.Scene implements GameScene {
 
         // populate tilesets
         const tilesets: Record<string, Phaser.Tilemaps.Tileset> = {}
-        this.mapConfig.tilesets.forEach(tilesetConfig => {
-            const tileset = this.map.addTilesetImage(tilesetConfig.name, tilesetConfig.key)
+        this.mapConfig.tilesets.forEach((tilesetConfig) => {
+            const tileset = this.map.addTilesetImage(
+                tilesetConfig.name,
+                tilesetConfig.key
+            )
             if (tileset) {
                 tilesets[tilesetConfig.key] = tileset
             }
         })
 
         // add each layer
-        this.mapConfig.layers.forEach(layerConfig => {
+        this.mapConfig.layers.forEach((layerConfig) => {
             const tileset = tilesets[layerConfig.tilesetKey]
             if (tileset) {
                 this.map.createLayer(layerConfig.name, tileset)
             }
         })
-
     }
 
     protected createPlayer(): void {
@@ -152,12 +172,14 @@ export class Scene extends Phaser.Scene implements GameScene {
     }
 
     protected createCollisions(): void {
-        const collisionLayer = this.map.getObjectLayer('Collisions') as TiledObjectLayer | null
+        const collisionLayer = this.map.getObjectLayer(
+            'Collisions'
+        ) as TiledObjectLayer | null
 
         if (collisionLayer) {
             this.collisionGroup = this.physics.add.staticGroup()
 
-            collisionLayer.objects.forEach(obj => {
+            collisionLayer.objects.forEach((obj) => {
                 if (obj.width > 0 && obj.height > 0 && obj.visible) {
                     const collisionRect = createCollisionBox(
                         this,
@@ -175,27 +197,37 @@ export class Scene extends Phaser.Scene implements GameScene {
     }
 
     protected createInteractables(): void {
-        const interactableLayer = this.map.getObjectLayer('Interactable') as TiledObjectLayer | null
-        console.log(interactableLayer)
+        const interactableLayer = this.map.getObjectLayer(
+            'Interactable'
+        ) as TiledObjectLayer | null
 
         if (interactableLayer) {
-            interactableLayer.objects.forEach(obj => {
+            interactableLayer.objects.forEach((obj) => {
                 const sprite = this.addSpriteToScene(obj)
                 if (sprite) {
                     sprite.setInteractive()
 
-                    const pulseColor = obj.properties?.pulseColor
-                        ? parseInt(obj.properties.pulseColor.replace('#', '0x'))
-                        : undefined
+                    const pulseColor =
+                        obj.properties?.pulseColor ?
+                            parseInt(
+                                obj.properties.pulseColor.replace('#', '0x')
+                            )
+                        :   undefined
 
                     addPulseEffect(this, sprite, pulseColor)
-                    this.interactionHandler.createInteractionFromTiled(obj, sprite)
+                    this.interactionHandler.createInteractionFromTiled(
+                        obj,
+                        sprite
+                    )
                     const isPassable = obj.properties?.passable ?? true
 
                     if (!isPassable) {
                         if (!this.collisionGroup) {
                             this.collisionGroup = this.physics.add.staticGroup()
-                            this.physics.add.collider(this.player, this.collisionGroup)
+                            this.physics.add.collider(
+                                this.player,
+                                this.collisionGroup
+                            )
                         }
 
                         // create a rect overtop of the object and use it to create a collision box
@@ -217,15 +249,21 @@ export class Scene extends Phaser.Scene implements GameScene {
 
     protected setupInput(): void {
         this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-            const shouldMove = this.interactionHandler.handlePointerPress(pointer)
+            const shouldMove =
+                this.interactionHandler.handlePointerPress(pointer)
             if (shouldMove) {
-                this.inputHandler.setTargetPosition(pointer.worldX, pointer.worldY)
+                this.inputHandler.setTargetPosition(
+                    pointer.worldX,
+                    pointer.worldY
+                )
             }
         })
 
-
         this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
-            this.inputHandler.updateTargetPosition(pointer.worldX, pointer.worldY)
+            this.inputHandler.updateTargetPosition(
+                pointer.worldX,
+                pointer.worldY
+            )
         })
 
         this.input.on('pointerup', () => {

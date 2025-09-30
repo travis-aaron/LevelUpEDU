@@ -1,4 +1,4 @@
-import type { TiledMapData } from '@/types'
+import type {TiledMapData} from '@/types'
 
 export class MapLoader {
     static async fetchMapData(mapName: string): Promise<TiledMapData> {

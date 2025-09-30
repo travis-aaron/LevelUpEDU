@@ -1,6 +1,6 @@
-import type { Scene } from '@/scenes/Scene'
+import type {Scene} from '@/scenes/Scene'
 
-type InteractionHandler = (scene: Scene, data?: any) => void
+type InteractionHandler = (scene: Scene, data?: unknown) => void
 
 class InteractionRegistry {
     private handlers: Map<string, InteractionHandler> = new Map()
@@ -9,7 +9,7 @@ class InteractionRegistry {
         this.handlers.set(type, handler)
     }
 
-    execute(type: string, scene: Scene, data?: any): void {
+    execute(type: string, scene: Scene, data?: unknown): void {
         const handler = this.handlers.get(type)
         if (handler) {
             handler(scene, data)

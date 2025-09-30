@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-
+import {useEffect, useRef, useState} from 'react'
+import styles from './GameComponent.module.css'
 
 /*
  *         ******************
@@ -20,7 +20,7 @@ import { useEffect, useRef, useState } from 'react'
  * ****************************************************
  *                 ||
  *                 \/
- * [starting Scene] constructor runs 
+ * [starting Scene] constructor runs
  * *********************************************
  *     - Calls Scene.ts constructor with its specific CONFIG options
  *     - [starting Scene] preload() runs and fetches API data and assets
@@ -29,11 +29,12 @@ import { useEffect, useRef, useState } from 'react'
  *              - Tiled's map JSON file is fetched from route handler at /src/data/maps/[mapId]
  *     - [starting Scene] create() runs and calls Scene.ts create() method
  *
- *         ================== 
+ *         ==================
  *         |****Scene.ts****|
  *         ==================
  *     - createMap() - Builds the tilemap from the passed in config and API data
  *     - createPlayer() - Load player and apply physics (to allow movement)
+ *     - createInteractables() - Loads object layers with interactive objects, creates collisions and adds handlers
  *     - createCollisions() - Loads the maps "Collisions" object layer and converts to Phaser colliders
  *     - setupInput() - Player controls are set up
  *     - update() <- main game loop, refreshes constantly
@@ -63,17 +64,13 @@ export default function GameComponent() {
     useEffect(() => {
         if (!isClient || !gameRef.current) return // don't try to render unless the DOM is ready
 
-        let gameInstance: any = null
+        let gameInstance: Phaser.Game | null = null
 
         const initGame = async () => {
             const Phaser = await import('phaser')
 
             // default scene to load
-            const { Classroom } = await import('@/scenes/Classroom')
-
-            // check device
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-            const scaleMode = isMobile ? Phaser.Scale.FIT : Phaser.Scale.FIT
+            const {Classroom} = await import('@/scenes/Classroom')
 
             const config = {
                 type: Phaser.WEBGL,
@@ -81,23 +78,23 @@ export default function GameComponent() {
                 backgroundColor: '#1a1a24',
                 render: {
                     pixelArt: true,
-                    antialias: false
+                    antialias: false,
                 },
                 scale: {
                     mode: Phaser.Scale.FIT,
                     autoCenter: Phaser.Scale.CENTER_BOTH,
                     width: 800,
                     height: 600,
-                    parent: gameRef.current
+                    parent: gameRef.current,
                 },
                 physics: {
                     default: 'arcade',
                     arcade: {
-                        gravity: { y: 0, x: 0 },
-                        debug: false
-                    }
+                        gravity: {y: 0, x: 0},
+                        debug: false,
+                    },
                 },
-                scene: Classroom
+                scene: Classroom,
             }
 
             gameInstance = new Phaser.Game(config)
@@ -117,33 +114,9 @@ export default function GameComponent() {
         return null
     }
 
-
     return (
-        <div
-            style={{
-                width: '100vw',
-                height: '100vh',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#1a1a24',
-                margin: 0,
-                padding: 0,
-                overflow: 'hidden',
-                position: 'fixed',
-                top: 0,
-                left: 0
-            }}
-        >
-            <div
-                ref={gameRef}
-                style={{
-                    width: '100%',
-                    height: '100%',
-                    maxWidth: '100vw',
-                    maxHeight: '100vh'
-                }}
-            />
+        <div className={styles.container}>
+            <div ref={gameRef} className={styles.gameCanvas} />
         </div>
     )
 }

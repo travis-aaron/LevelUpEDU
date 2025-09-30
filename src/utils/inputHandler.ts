@@ -1,4 +1,4 @@
-import type { Scene } from '@/scenes/Scene'
+import type {Scene} from '@/scenes/Scene'
 
 export class InputHandler {
     private scene: Scene
@@ -10,7 +10,7 @@ export class InputHandler {
         down: boolean
     }
 
-    private targetPosition: { x: number; y: number } | null = null
+    private targetPosition: {x: number; y: number} | null = null
     private isMousePressed: boolean = false
     private moveSpeed: number = 100
     private movementBlocked: boolean = false
@@ -22,7 +22,7 @@ export class InputHandler {
             left: false,
             right: false,
             up: false,
-            down: false
+            down: false,
         }
         this.cursors = scene.input.keyboard!.createCursorKeys()
         this.setupKeyboardInput()
@@ -30,14 +30,30 @@ export class InputHandler {
     }
 
     private setupKeyboardInput(): void {
-        this.scene.input.keyboard!.on('keydown-W', () => this.handleMovement('up', true))
-        this.scene.input.keyboard!.on('keyup-W', () => this.handleMovement('up', false))
-        this.scene.input.keyboard!.on('keydown-S', () => this.handleMovement('down', true))
-        this.scene.input.keyboard!.on('keyup-S', () => this.handleMovement('down', false))
-        this.scene.input.keyboard!.on('keydown-A', () => this.handleMovement('left', true))
-        this.scene.input.keyboard!.on('keyup-A', () => this.handleMovement('left', false))
-        this.scene.input.keyboard!.on('keydown-D', () => this.handleMovement('right', true))
-        this.scene.input.keyboard!.on('keyup-D', () => this.handleMovement('right', false))
+        this.scene.input.keyboard!.on('keydown-W', () =>
+            this.handleMovement('up', true)
+        )
+        this.scene.input.keyboard!.on('keyup-W', () =>
+            this.handleMovement('up', false)
+        )
+        this.scene.input.keyboard!.on('keydown-S', () =>
+            this.handleMovement('down', true)
+        )
+        this.scene.input.keyboard!.on('keyup-S', () =>
+            this.handleMovement('down', false)
+        )
+        this.scene.input.keyboard!.on('keydown-A', () =>
+            this.handleMovement('left', true)
+        )
+        this.scene.input.keyboard!.on('keyup-A', () =>
+            this.handleMovement('left', false)
+        )
+        this.scene.input.keyboard!.on('keydown-D', () =>
+            this.handleMovement('right', true)
+        )
+        this.scene.input.keyboard!.on('keyup-D', () =>
+            this.handleMovement('right', false)
+        )
     }
 
     private setupBrowserEvents(): void {
@@ -46,19 +62,22 @@ export class InputHandler {
         })
     }
 
-    public handleMovement(direction: 'up' | 'down' | 'left' | 'right', active: boolean): void {
+    public handleMovement(
+        direction: 'up' | 'down' | 'left' | 'right',
+        active: boolean
+    ): void {
         this.movementState[direction] = active
     }
 
     public setTargetPosition(x: number, y: number): void {
         if (this.movementBlocked) return
         this.isMousePressed = true
-        this.targetPosition = { x, y }
+        this.targetPosition = {x, y}
     }
 
     public updateTargetPosition(x: number, y: number): void {
         if (this.movementBlocked || !this.isMousePressed) return
-        this.targetPosition = { x, y }
+        this.targetPosition = {x, y}
     }
 
     public releaseTarget(): void {
@@ -100,8 +119,10 @@ export class InputHandler {
 
         if (this.targetPosition) {
             const distance = Phaser.Math.Distance.Between(
-                player.x, player.y,
-                this.targetPosition.x, this.targetPosition.y
+                player.x,
+                player.y,
+                this.targetPosition.x,
+                this.targetPosition.y
             )
 
             if (distance > 5) {
@@ -111,7 +132,10 @@ export class InputHandler {
                 const normalizedX = deltaX / length
                 const normalizedY = deltaY / length
 
-                body.setVelocity(normalizedX * this.moveSpeed, normalizedY * this.moveSpeed)
+                body.setVelocity(
+                    normalizedX * this.moveSpeed,
+                    normalizedY * this.moveSpeed
+                )
 
                 if (Math.abs(deltaX) > Math.abs(deltaY)) {
                     primaryAnimation = deltaX < 0 ? 'walk_left' : 'walk_right'
@@ -124,10 +148,13 @@ export class InputHandler {
                 body.setVelocity(0, 0)
             }
         } else {
-            const leftPressed = this.cursors.left.isDown || this.movementState.left
-            const rightPressed = this.cursors.right.isDown || this.movementState.right
+            const leftPressed =
+                this.cursors.left.isDown || this.movementState.left
+            const rightPressed =
+                this.cursors.right.isDown || this.movementState.right
             const upPressed = this.cursors.up.isDown || this.movementState.up
-            const downPressed = this.cursors.down.isDown || this.movementState.down
+            const downPressed =
+                this.cursors.down.isDown || this.movementState.down
 
             let velocityX = 0
             let velocityY = 0
