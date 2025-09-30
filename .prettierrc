@@ -5,5 +5,8 @@
     "experimentalTernaries": true,
     "singleQuote": true,
     "bracketSameLine": true,
-    "bracketSpacing": false
+    "bracketSpacing": false,
+    "printWidth": 80,
+    "arrowParens": "always",
+    "endOfLine": "lf"
 }
