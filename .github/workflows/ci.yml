@@ -39,11 +39,15 @@ jobs:
             - name: Run Prettier
               run: pnpm run format
 
-            - name: Commit formatting changes
-              uses: stefanzweifel/git-auto-commit-action@v6
-              with:
-                  commit_message: "style: auto-format code with prettier"
-                  file_pattern: "src/**/*.{ts,tsx,js,jsx,json,css,md}"
+            - name: Commit and push formatting changes
+              run: |
+                  git add -A
+                  if git diff --staged --quiet; then
+                    echo "No formatting changes to commit"
+                  else
+                    git commit -m "style: auto-format code with prettier"
+                    git push
+                  fi
 
             - name: Lint
               run: pnpm next lint
