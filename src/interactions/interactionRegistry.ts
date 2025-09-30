@@ -1,4 +1,4 @@
-import type { Scene } from '@/scenes/Scene'
+import type {Scene} from '@/scenes/Scene'
 
 type InteractionHandler = (scene: Scene, data?: any) => void
 

@@ -2,7 +2,7 @@ import withPWA from 'next-pwa'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    webpack: (config, { isServer }) => {
+    webpack: (config, {isServer}) => {
         if (isServer) {
             // Don't bundle Phaser on the server
             config.externals.push('phaser')
@@ -29,7 +29,7 @@ const pwaConfig = withPWA({
     dest: 'public',
     register: true,
     skipWaiting: true,
-    disable: process.env.NODE_ENV === 'development'
+    disable: process.env.NODE_ENV === 'development',
 })
 
 export default pwaConfig(nextConfig)

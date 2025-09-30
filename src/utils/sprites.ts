@@ -11,10 +11,10 @@ export function addPulseEffect(
 
     return scene.tweens.add({
         targets: sprite,
-        alpha: { from: alphaFrom, to: alphaTo },
+        alpha: {from: alphaFrom, to: alphaTo},
         duration: duration,
         ease: 'Sine.easeInOut',
         yoyo: true,
-        repeat: -1
+        repeat: -1,
     })
 }
