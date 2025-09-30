@@ -5,10 +5,10 @@ import type {
     TiledObjectLayer,
     MovementState,
 } from '@/types'
-import {createCollisionBox} from '@/utils/physics'
-import {addPulseEffect} from '@/utils/sprites'
-import {InputHandler} from '@/utils/inputHandler'
-import {InteractionHandler} from '@/interactions/interactionHandler'
+import { createCollisionBox } from '@/utils/physics'
+import { addPulseEffect } from '@/utils/sprites'
+import { InputHandler } from '@/utils/inputHandler'
+import { InteractionHandler } from '@/interactions/interactionHandler'
 import '@/interactions'
 
 interface SpriteManifest {
@@ -25,7 +25,7 @@ export class Scene extends Phaser.Scene implements GameScene {
     public collisionGroup!: Phaser.Physics.Arcade.StaticGroup
 
     private inputHandler!: InputHandler
-    private interactionHandler!: InteractionHandler
+    public interactionHandler!: InteractionHandler
     public player!: Phaser.Physics.Arcade.Sprite
 
     // input objects
@@ -34,7 +34,7 @@ export class Scene extends Phaser.Scene implements GameScene {
 
     // key is the name of the map, ie "classroom"
     constructor(key: string, mapConfig: MapConfig) {
-        super({key})
+        super({ key })
         this.mapConfig = mapConfig
         this.sceneName = mapConfig.name
     }
@@ -137,12 +137,8 @@ export class Scene extends Phaser.Scene implements GameScene {
             }
 
             return sprite
-        } else {
-            console.warn(
-                `Sprite '${obj.name}' not available for ${this.sceneName} scene`
-            )
-            return null
         }
+        return null
     }
 
     protected createMap(): void {
@@ -204,7 +200,6 @@ export class Scene extends Phaser.Scene implements GameScene {
         const interactableLayer = this.map.getObjectLayer(
             'Interactable'
         ) as TiledObjectLayer | null
-        console.log(interactableLayer)
 
         if (interactableLayer) {
             interactableLayer.objects.forEach((obj) => {
@@ -217,7 +212,7 @@ export class Scene extends Phaser.Scene implements GameScene {
                             parseInt(
                                 obj.properties.pulseColor.replace('#', '0x')
                             )
-                        :   undefined
+                            : undefined
 
                     addPulseEffect(this, sprite, pulseColor)
                     this.interactionHandler.createInteractionFromTiled(

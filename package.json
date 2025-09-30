@@ -24,6 +24,7 @@
     "scripts": {
         "dev": "node log.js dev & next dev -p 8080",
         "build": "node log.js build & next build",
+        "lint": "next lint",
         "dev-nolog": "next dev -p 8080",
         "build-nolog": "next build",
         "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
@@ -40,6 +41,7 @@
         "@types/node": "^20.19.17",
         "@types/react": "^19.1.15",
         "@types/react-dom": "^19.1.9",
+        "eslint-config-next": "^15.5.4",
         "eslint-config-prettier": "^10.1.8",
         "prettier": "^3.6.2",
         "typescript": "^5.9.2"

@@ -1,6 +1,6 @@
-import type {Scene} from '@/scenes/Scene'
-import type {TiledObject} from '@/types'
-import {interactionRegistry} from './interactionRegistry'
+import type { Scene } from '@/scenes/Scene'
+import type { TiledObject } from '@/types'
+import { interactionRegistry } from './interactionRegistry'
 
 export interface InteractionConfig {
     name: string
@@ -27,13 +27,14 @@ export class InteractionHandler {
             Phaser.Input.Keyboard.KeyCodes.E
         )
 
+
         // Create UI elements
         this.nameTagText = scene.add
             .text(0, 0, '', {
                 fontSize: '16px',
                 color: '#ffffff',
                 backgroundColor: '#000000',
-                padding: {x: 8, y: 4},
+                padding: { x: 8, y: 4 },
             })
             .setVisible(false)
             .setDepth(1000)
@@ -43,7 +44,7 @@ export class InteractionHandler {
                 fontSize: '14px',
                 color: '#ffff00',
                 backgroundColor: '#333333',
-                padding: {x: 6, y: 3},
+                padding: { x: 6, y: 3 },
             })
             .setVisible(false)
             .setDepth(1001)
@@ -57,6 +58,12 @@ export class InteractionHandler {
             this
         )
     }
+
+    private getConfigFromObject(obj: unknown): InteractionConfig | undefined {
+        const gameObj = obj as { getData?: (key: string) => unknown }
+        return gameObj.getData?.('config') as InteractionConfig | undefined
+    }
+
 
     public blockMovement(): void {
         this.isInterfaceOpen = true
@@ -101,23 +108,24 @@ export class InteractionHandler {
         this.interactionGroup.add(interactionZone)
     }
 
-    private handleInteraction(player: any, interactionObject: any): void {
-        const config: InteractionConfig = interactionObject.getData('config')
+    private handleInteraction(
+        _player: unknown,
+        interactionObject: unknown
+    ): void {
+        const config = this.getConfigFromObject(interactionObject)
         if (!config) return
 
-        if (this.currentInteractionObject !== interactionObject) {
-            this.currentInteractionObject = interactionObject
-            this.showNameTag(
-                config.name,
-                interactionObject.x,
-                interactionObject.y - interactionObject.height / 2 - 30
-            )
+        const rectObject = interactionObject as Phaser.GameObjects.Rectangle
+
+        if (this.currentInteractionObject !== rectObject) {
+            this.currentInteractionObject = rectObject
+            this.showNameTag(config.name, rectObject.x, rectObject.y - rectObject.height / 2 - 30)
 
             if (config.canInteract) {
                 this.showInteractionPrompt(
                     config.tooltip || 'Press E to interact',
-                    interactionObject.x,
-                    interactionObject.y + interactionObject.height / 2 + 10
+                    rectObject.x,
+                    rectObject.y + rectObject.height / 2 + 10
                 )
             }
         }
@@ -134,24 +142,22 @@ export class InteractionHandler {
     public handlePointerPress(pointer: Phaser.Input.Pointer): boolean {
         if (!this.currentInteractionObject) return true
 
-        const config: InteractionConfig =
-            this.currentInteractionObject.getData('config')
+        const config = this.getConfigFromObject(this.currentInteractionObject)
         if (!config?.canInteract) return true
 
         const objectBounds = this.currentInteractionObject.getBounds()
         if (objectBounds.contains(pointer.worldX, pointer.worldY)) {
             this.performInteraction(config.type)
-            return false // Block movement
+            return false
         }
 
-        return true // Allow movement
+        return true
     }
 
     private handleInteractionInput(): void {
         if (!this.currentInteractionObject) return
 
-        const config: InteractionConfig =
-            this.currentInteractionObject.getData('config')
+        const config = this.getConfigFromObject(this.currentInteractionObject)
         if (config?.canInteract) {
             this.performInteraction(config.type)
         }
@@ -210,7 +216,7 @@ export class InteractionHandler {
         }
     }
 
-    private performInteraction(type: string, data?: any): void {
+    private performInteraction(type: string, data?: unknown): void {
         interactionRegistry.execute(type, this.scene, data)
     }
 }

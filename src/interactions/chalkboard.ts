@@ -1,14 +1,18 @@
-import {interactionRegistry} from './interactionRegistry'
-import type {Scene} from '@/scenes/Scene'
+import { interactionRegistry } from './interactionRegistry'
 
-interactionRegistry.register('chalkboard', (scene: Scene) => {
-    ;(scene as any).interactionHandler.blockMovement()
+interactionRegistry.register('chalkboard', (scene, _data?) => {
+    scene.interactionHandler.blockMovement()
     const screenWidth = scene.scale.width
     const screenHeight = scene.scale.height
     const interfaceWidth = screenWidth * 0.8
     const interfaceHeight = screenHeight * 0.8
     const centerX = screenWidth / 2
     const centerY = screenHeight / 2
+
+    const escKey = scene.input.keyboard!.addKey(
+        Phaser.Input.Keyboard.KeyCodes.ESC
+    )
+    const qKey = scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.Q)
 
     const overlay = scene.add.rectangle(
         centerX,
@@ -75,16 +79,12 @@ interactionRegistry.register('chalkboard', (scene: Scene) => {
         elements.forEach((el) => el.destroy())
         escKey.off('down', closeInterface)
         qKey.off('down', closeInterface)
-        ;(scene as any).interactionHandler.unblockMovement()
+        scene.interactionHandler.unblockMovement()
     }
 
     overlay.setInteractive()
     overlay.on('pointerdown', closeInterface)
 
-    const escKey = scene.input.keyboard!.addKey(
-        Phaser.Input.Keyboard.KeyCodes.ESC
-    )
-    const qKey = scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.Q)
     escKey.on('down', closeInterface)
     qKey.on('down', closeInterface)
 })
