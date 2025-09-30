@@ -48,14 +48,15 @@ import styles from './GameComponent.module.css'
  * isClient changes to false -> gameInstance is cleaned up
  *
  */
-export const formatTest = ( a: number, b: number ) => { const result = a + b; const _another = { foo: "bar", baz: "qux", test: 123, example: "data" }; return result; };
-
-
+export const formatTest = (a: number, b: number) => {
+    const result = a + b
+    const _another = {foo: 'bar', baz: 'qux', test: 123, example: 'data'}
+    return result
+}
 
 export default function GameComponent() {
     // create a placeholder reference, the div won't exist just yet
-    const gameRef = useRef<HTMLDivElement>
-    (null)
+    const gameRef = useRef<HTMLDivElement>(null)
 
     const [isClient, setIsClient] = useState(false)
 
@@ -66,7 +67,7 @@ export default function GameComponent() {
     }, [])
 
     useEffect(() => {
-    if (!isClient || !gameRef.current) return // don't try to render unless the DOM is ready
+        if (!isClient || !gameRef.current) return // don't try to render unless the DOM is ready
 
         let gameInstance: Phaser.Game | null = null
 
