@@ -33,8 +33,6 @@ jobs:
         needs: format
         steps:
             - uses: actions/checkout@v4
-              with:
-                  ref: ${{ github.head_ref }}
 
             - name: Setup pnpm
               uses: pnpm/action-setup@v4
@@ -61,8 +59,6 @@ jobs:
         needs: format
         steps:
             - uses: actions/checkout@v4
-              with:
-                  ref: ${{ github.head_ref }}
 
             - name: Setup pnpm
               uses: pnpm/action-setup@v4
