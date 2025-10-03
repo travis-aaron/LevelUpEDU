@@ -5,10 +5,10 @@
     },
     "activeFile": "Classroom.tmx",
     "expandedProjectPaths": [
+        "public",
         ".",
-        "public/assets",
         "public/assets/tilemaps",
-        "public"
+        "public/assets"
     ],
     "fileStates": {
         "": {
@@ -24,10 +24,10 @@
         },
         "Classroom.tmx": {
             "scale": 2,
-            "selectedLayer": 1,
+            "selectedLayer": 9,
             "viewCenter": {
-                "x": 489,
-                "y": 311.25
+                "x": 414.75,
+                "y": 314.5
             }
         },
         "Classroom.tmx#Interiors_free_32x32": {
