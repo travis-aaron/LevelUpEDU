@@ -1,4 +1,5 @@
 import {
+    check,
     pgEnum,
     pgTable,
     varchar,
@@ -7,6 +8,7 @@ import {
     timestamp,
     serial,
 } from 'drizzle-orm/pg-core'
+import {sql} from 'drizzle-orm'
 
 /* enums */
 
@@ -81,6 +83,34 @@ export const submission = pgTable('submission', {
     verifiedBy: varchar('verified_by').references(() => instructor.email),
     verifiedDate: timestamp('verified_date', {mode: 'date'}),
 })
+
+export const redemption = pgTable('redemption', {
+    id: serial('id').primaryKey().unique(),
+})
+
+export const transaction = pgTable(
+    'transaction',
+    {
+        id: serial('id').primaryKey().unique(),
+        studentId: varchar('student_id')
+            .references(() => student.email)
+            .notNull(),
+        pointsValue: integer('points_value').notNull(),
+        transactionDate: timestamp('transaction_date', {
+            mode: 'date',
+        }).notNull(),
+        submissionId: integer('submission_id').references(() => submission.id),
+        redemptionId: integer('redemption_id').references(() => redemption.id),
+    },
+    (table) => [
+        check(
+            // business rule: there must be a way to track where the transaction came from
+            'submission_id',
+            sql`(${table.submissionId} IS NOT NULL AND ${table.redemptionId} IS NULL) OR
+              (${table.submissionId} IS NULL AND ${table.redemptionId} IS NOT NULL)`
+        ),
+    ]
+)
 
 /* helper functions */
 
