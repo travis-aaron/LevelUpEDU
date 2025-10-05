@@ -12,6 +12,12 @@ import {sql} from 'drizzle-orm'
 
 /* enums */
 
+export const redemptionStatus = pgEnum('redemption_status', [
+    'pending',
+    'fulfilled',
+    'cancelled',
+])
+
 export const submissionStatus = pgEnum('submission_status', [
     'pending',
     'approved',
@@ -84,8 +90,25 @@ export const submission = pgTable('submission', {
     verifiedDate: timestamp('verified_date', {mode: 'date'}),
 })
 
+export const reward = pgTable('reward', {
+    id: serial('id').primaryKey().unique(),
+})
+
 export const redemption = pgTable('redemption', {
     id: serial('id').primaryKey().unique(),
+    studentId: varchar('student_id')
+        .references(() => student.email)
+        .notNull(),
+    rewardId: integer('reward_id')
+        .references(() => reward.id)
+        .notNull(),
+    redemptionDate: timestamp('redemption_date', {
+        mode: 'date',
+    }).notNull(),
+    status: redemptionStatus('status').notNull().default('pending'),
+    fulfillmentDate: timestamp('fulfillment_date', {mode: 'date'}),
+    instructorNotes: text('instructor_notes'),
+    studentNotes: text('student_notes'),
 })
 
 export const transaction = pgTable(
