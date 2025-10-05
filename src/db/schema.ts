@@ -30,19 +30,19 @@ export const submissionStatus = pgEnum('submission_status', [
 /* User management */
 
 export const student = pgTable('student', {
-    email: varchar('email').primaryKey().unique(),
+    email: varchar('email').primaryKey(),
     name: varchar('name').notNull(),
     lastSignin: timestamp('last_signin', {mode: 'date'}),
 })
 
 export const instructor = pgTable('instructor', {
-    email: varchar('email').primaryKey().unique(),
+    email: varchar('email').primaryKey(),
     name: varchar('name').notNull(),
     lastSignin: timestamp('last_signin', {mode: 'date'}),
 })
 
 export const course = pgTable('course', {
-    id: serial('id').primaryKey().unique(),
+    id: serial('id').primaryKey(),
     courseCode: varchar('course_code', {length: 6})
         .notNull()
         .unique()
@@ -66,7 +66,7 @@ export const registration = pgTable('registration', {
 /* Quests & rewards */
 
 export const quest = pgTable('quest', {
-    id: serial('id').primaryKey().unique(),
+    id: serial('id').primaryKey(),
     courseId: integer('course_id')
         .references(() => course.id)
         .notNull(),
@@ -80,7 +80,7 @@ export const quest = pgTable('quest', {
 })
 
 export const submission = pgTable('submission', {
-    id: serial('id').primaryKey().unique(),
+    id: serial('id').primaryKey(),
     studentId: varchar('student_id')
         .references(() => student.email)
         .notNull(),
@@ -96,7 +96,7 @@ export const submission = pgTable('submission', {
 export const reward = pgTable(
     'reward',
     {
-        id: serial('id').primaryKey().unique(),
+        id: serial('id').primaryKey(),
         courseId: integer('course_id')
             .references(() => course.id)
             .notNull(),
@@ -137,7 +137,7 @@ export const redemption = pgTable('redemption', {
 export const transaction = pgTable(
     'transaction',
     {
-        id: serial('id').primaryKey().unique(),
+        id: serial('id').primaryKey(),
         studentId: varchar('student_id')
             .references(() => student.email)
             .notNull(),
