@@ -56,9 +56,8 @@ erDiagram
 		date last_signin  ""
 	}
 	INSTRUCTOR {
-		int instructor_id PK ""  
+		string email PK ""  
 		string name  ""  
-		string email  ""  
 		date last_signin  ""  
 	}
 	REGISTRATION {
