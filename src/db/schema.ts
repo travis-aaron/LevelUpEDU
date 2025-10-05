@@ -1,4 +1,5 @@
 import {
+    boolean,
     check,
     pgEnum,
     pgTable,
@@ -11,6 +12,8 @@ import {
 import {sql} from 'drizzle-orm'
 
 /* enums */
+
+export const rewardType = pgEnum('reward_type', ['unspecified'])
 
 export const redemptionStatus = pgEnum('redemption_status', [
     'pending',
@@ -90,9 +93,29 @@ export const submission = pgTable('submission', {
     verifiedDate: timestamp('verified_date', {mode: 'date'}),
 })
 
-export const reward = pgTable('reward', {
-    id: serial('id').primaryKey().unique(),
-})
+export const reward = pgTable(
+    'reward',
+    {
+        id: serial('id').primaryKey().unique(),
+        courseId: integer('course_id')
+            .references(() => course.id)
+            .notNull(),
+        creationDate: timestamp('creation_date', {mode: 'date'}).notNull(),
+        name: varchar('name', {length: 63}).notNull(),
+        description: text('description'),
+        cost: integer('cost').notNull(),
+        qtyLimit: integer('qty_limit'),
+        type: rewardType('reward_type').notNull().default('unspecified'),
+        active: boolean('active').notNull().default(true),
+    },
+    (table) => [
+        check('cost_not_negative', sql`${table.cost} >= 0`),
+        check(
+            'quantity_limit_positive',
+            sql`${table.qtyLimit} IS NULL OR ${table.qtyLimit} > 0`
+        ),
+    ]
+)
 
 export const redemption = pgTable('redemption', {
     id: serial('id').primaryKey().unique(),
@@ -128,7 +151,7 @@ export const transaction = pgTable(
     (table) => [
         check(
             // business rule: there must be a way to track where the transaction came from
-            'submission_id',
+            'transaction_source_not_null',
             sql`(${table.submissionId} IS NOT NULL AND ${table.redemptionId} IS NULL) OR
               (${table.submissionId} IS NULL AND ${table.redemptionId} IS NOT NULL)`
         ),
