@@ -49,94 +49,104 @@ src/
 8. REWARD quantity remaining to be calculated from REDEMPTION table and compared against REWARD quantity_limit
 9. Cancelled redemptions do not change REWARD back to active or add quantity to rewards
 ## Database Schema
-```mermaid
 ---
+```mermaid
 config:
   layout: elk
 ---
 erDiagram
 	direction BT
+	
 	STUDENT {
-		string email PK ""  
-		string name  ""
-		date last_signin  "nullable"
+		string id PK
+		string name
+		date last_signin "nullable"
 	}
+	
 	INSTRUCTOR {
-		string email PK ""  
-		string name  ""  
-		date last_signin  "nullable"  
+		string id PK
+		string name
+		date last_signin "nullable"
 	}
+	
 	REGISTRATION {
-		int student_id PK FK ""  
-		int course_id PK FK ""  
+		string student_id FK
+		int course_id FK
+		string COMPOSITE_PK "PRIMARY KEY (student_id, course_id)"
 	}
+	
 	COURSE {
 		int id PK
-		string course_code "unique, auto-generated"  
-		int instructor_id FK ""  
-		string title  ""  
-		string description  "nullable"  
+		string course_code "unique, auto-generated"
+		string instructor_id FK
+		string title
+		text description "nullable"
 	}
+	
 	QUEST {
 		int id PK
 		int course_id FK
-        int created_by FK "references INSTRUCTOR"  
+		string created_by FK "references INSTRUCTOR"
 		string title
 		int points
 		date created_date
-		date expiration_date  "nullable"  
+		date expiration_date "nullable"
 	}
+	
 	SUBMISSION {
 		int id PK
-		int student_id FK
+		string student_id FK
 		int quest_id FK
 		date submission_date
-		enum status  "pending | approved | rejected"  
-		int verified_by FK "nullable, references INSTRUCTOR"  
-		date verified_date  "nullable"  
+		enum status "pending | approved | rejected"
+		string verified_by FK "nullable, references INSTRUCTOR"
+		date verified_date "nullable"
 	}
+	
 	TRANSACTION {
 		int id PK
-		int student_id FK
-		int points
+		string student_id FK
+		int points_value
 		date transaction_date
-		int submission_id FK "nullable"  
+		int submission_id FK "nullable"
 		int redemption_id FK "nullable"
 	}
+	
 	REDEMPTION {
 		int id PK
-		int student_id FK
+		string student_id FK
 		int reward_id FK
 		date redemption_date
-		enum status  "pending | fulfilled | cancelled"  
-		date fulfillment_date  "nullable"  
-		string instructor_notes  "nullable"  
-		string student_notes  "nullable"  
+		enum status "pending | fulfilled | cancelled"
+		date fulfillment_date "nullable"
+		text instructor_notes "nullable"
+		text student_notes "nullable"
 	}
+	
 	REWARD {
 		int id PK
 		int course_id FK
 		date created_date
 		string name
-		text description  "nullable"  
+		text description "nullable"
 		int cost
-		int quantity_limit  "nullable"  
-        enum type "default unspecified"
-		boolean active  "default true"  
+		int quantity_limit "nullable"
+		enum type "unspecified"
+		boolean active "default true"
 	}
+	
 	STUDENT||--o{REGISTRATION:"has"
 	COURSE||--o{REGISTRATION:"contains"
 	INSTRUCTOR||--o{COURSE:"teaches"
 	COURSE||--o{QUEST:"has"
 	INSTRUCTOR||--o{QUEST:"creates"
-	INSTRUCTOR||--o{REWARD:"manages"
+	COURSE||--o{REWARD:"has"
 	STUDENT||--o{SUBMISSION:"submits"
 	QUEST||--o{SUBMISSION:"receives"
 	INSTRUCTOR||--o{SUBMISSION:"verifies"
-    STUDENT||--o{TRANSACTION:"has"
-	STUDENT||--o{REDEMPTION:"triggers a"
-	REWARD||--o{REDEMPTION:"redeemed as"    
-    SUBMISSION||--||TRANSACTION:"creates"
-    REDEMPTION||--||TRANSACTION:"creates"
-
+	STUDENT||--o{TRANSACTION:"has"
+	STUDENT||--o{REDEMPTION:"initiates"
+	REWARD||--o{REDEMPTION:"redeemed as"
+	SUBMISSION||--||TRANSACTION:"creates"
+	REDEMPTION||--||TRANSACTION:"creates"
 ```
