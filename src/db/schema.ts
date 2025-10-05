@@ -74,7 +74,7 @@ export const quest = pgTable('quest', {
         .references(() => instructor.email)
         .notNull(),
     title: varchar('title', {length: 63}).notNull(),
-    pointsValue: integer('points_value').notNull(),
+    points: integer('points').notNull(),
     createdDate: timestamp('created_date', {mode: 'date'}).notNull(),
     expirationDate: timestamp('expiration_date', {mode: 'date'}),
 })
@@ -104,7 +104,7 @@ export const reward = pgTable(
         name: varchar('name', {length: 63}).notNull(),
         description: text('description'),
         cost: integer('cost').notNull(),
-        qtyLimit: integer('qty_limit'),
+        quantityLimit: integer('quantity_limit'),
         type: rewardType('reward_type').notNull().default('unspecified'),
         active: boolean('active').notNull().default(true),
     },
@@ -112,7 +112,7 @@ export const reward = pgTable(
         check('cost_not_negative', sql`${table.cost} >= 0`),
         check(
             'quantity_limit_positive',
-            sql`${table.qtyLimit} IS NULL OR ${table.qtyLimit} > 0`
+            sql`${table.quantityLimit} IS NULL OR ${table.quantityLimit} > 0`
         ),
     ]
 )
@@ -141,7 +141,7 @@ export const transaction = pgTable(
         studentId: varchar('student_id')
             .references(() => student.email)
             .notNull(),
-        pointsValue: integer('points_value').notNull(),
+        points: integer('points').notNull(),
         transactionDate: timestamp('transaction_date', {
             mode: 'date',
         }).notNull(),
