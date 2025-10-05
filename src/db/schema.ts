@@ -105,7 +105,7 @@ export const reward = pgTable(
         courseId: integer('course_id')
             .references(() => course.id)
             .notNull(),
-        creationDate: timestamp('creation_date', {mode: 'date'}).notNull(),
+        createdDate: timestamp('created_date', {mode: 'date'}).notNull(),
         name: varchar('name', {length: 63}).notNull(),
         description: text('description'),
         cost: integer('cost').notNull(),
