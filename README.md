@@ -49,8 +49,8 @@ src/
 8. REWARD quantity remaining to be calculated from REDEMPTION table and compared against REWARD quantity_limit
 9. Cancelled redemptions do not change REWARD back to active or add quantity to rewards
 ## Database Schema
----
 ```mermaid
+---
 config:
   layout: elk
 ---
