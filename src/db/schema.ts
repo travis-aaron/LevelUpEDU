@@ -3,6 +3,7 @@ import {
     check,
     pgEnum,
     pgTable,
+    primaryKey,
     varchar,
     integer,
     text,
@@ -54,14 +55,18 @@ export const course = pgTable('course', {
         .notNull(),
 })
 
-export const registration = pgTable('registration', {
-    studentId: varchar('student_id')
-        .references(() => student.email)
-        .notNull(),
-    courseId: integer('course_id')
-        .references(() => course.id)
-        .notNull(),
-})
+export const registration = pgTable(
+    'registration',
+    {
+        studentId: varchar('student_id')
+            .references(() => student.email)
+            .notNull(),
+        courseId: integer('course_id')
+            .references(() => course.id)
+            .notNull(),
+    },
+    (table) => [primaryKey({columns: [table.studentId, table.courseId]})]
+)
 
 /* Quests & rewards */
 
