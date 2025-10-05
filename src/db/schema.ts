@@ -1,4 +1,5 @@
 import {
+    pgEnum,
     pgTable,
     varchar,
     integer,
@@ -6,6 +7,14 @@ import {
     timestamp,
     serial,
 } from 'drizzle-orm/pg-core'
+
+/* enums */
+
+export const submissionStatus = pgEnum('submission_status', [
+    'pending',
+    'approved',
+    'rejected',
+])
 
 /* User management */
 
@@ -22,7 +31,7 @@ export const instructor = pgTable('instructor', {
 })
 
 export const course = pgTable('course', {
-    id: serial('course_id').primaryKey().unique(),
+    id: serial('id').primaryKey().unique(),
     courseCode: varchar('course_code', {length: 6})
         .notNull()
         .unique()
@@ -46,7 +55,7 @@ export const registration = pgTable('registration', {
 /* Quests & rewards */
 
 export const quest = pgTable('quest', {
-    id: serial('quest_id').primaryKey().unique(),
+    id: serial('id').primaryKey().unique(),
     courseId: integer('course_id')
         .references(() => course.id)
         .notNull(),
@@ -57,6 +66,20 @@ export const quest = pgTable('quest', {
     pointsValue: integer('points_value').notNull(),
     createdDate: timestamp('created_date', {mode: 'date'}).notNull(),
     expirationDate: timestamp('expiration_date', {mode: 'date'}),
+})
+
+export const submission = pgTable('submission', {
+    id: serial('id').primaryKey().unique(),
+    studentId: varchar('student_id')
+        .references(() => student.email)
+        .notNull(),
+    questId: integer('quest_id')
+        .references(() => quest.id)
+        .notNull(),
+    submissionDate: timestamp('submission_date', {mode: 'date'}).notNull(),
+    status: submissionStatus('status').notNull().default('pending'),
+    verifiedBy: varchar('verified_by').references(() => instructor.email),
+    verifiedDate: timestamp('verified_date', {mode: 'date'}),
 })
 
 /* helper functions */
