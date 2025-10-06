@@ -24,6 +24,8 @@
     "scripts": {
         "dev": "node log.js dev & next dev -p 8080",
         "build": "node log.js build & next build",
+        "db:push": "drizzle-kit push",
+        "db:studio": "drizzle-kit studio",
         "lint": "next lint",
         "dev-nolog": "next dev -p 8080",
         "build-nolog": "next build",
@@ -37,16 +39,21 @@
         ]
     },
     "dependencies": {
+        "@neondatabase/serverless": "^1.0.2",
+        "dotenv": "^17.2.3",
+        "drizzle-orm": "^0.44.6",
         "next": "15.3.1",
         "next-pwa": "^5.6.0",
         "phaser": "^3.90.0",
         "react": "19.0.0",
-        "react-dom": "19.0.0"
+        "react-dom": "19.0.0",
+        "tsx": "^4.20.6"
     },
     "devDependencies": {
         "@types/node": "^20.19.17",
         "@types/react": "^19.1.15",
         "@types/react-dom": "^19.1.9",
+        "drizzle-kit": "^0.31.5",
         "eslint-config-next": "^15.5.4",
         "eslint-config-prettier": "^10.1.8",
         "husky": "^9.1.7",
