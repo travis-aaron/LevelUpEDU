@@ -19,9 +19,9 @@ import type {
     Redemption,
 } from '@/types/db'
 
-import {eq} from 'drizzle-orm'
+import {eq, sum} from 'drizzle-orm'
 
-export async function findStudentByEmail(
+export async function getStudentByEmail(
     email: string
 ): Promise<Student | null> {
     const result = await db
@@ -33,13 +33,46 @@ export async function findStudentByEmail(
     return result[0] ?? null
 }
 
-export async function findInstructorByEmail(
+export async function getInstructorByEmail(
     email: string
 ): Promise<Instructor | null> {
     const result = await db
         .select()
         .from(instructor)
         .where(eq(instructor.email, email))
+        .limit(1)
+
+    return result[0] ?? null
+}
+
+export async function getStudentPoints(email: string): Promise<number> {
+    const result = await db
+        .select({total: sum(transaction.points)})
+        .from(transaction)
+        .where(eq(transaction.studentId, email))
+
+    return Number(result[0]?.total ?? 0)
+}
+
+export async function getPendingSubmissions(): Promise<Submission[]> {
+    return db.select().from(submission).where(eq(submission.status, 'pending'))
+}
+
+export async function getSubmissionsByStudent(
+    email: string
+): Promise<Submission[]> {
+    return db.select().from(submission).where(eq(submission.studentId, email))
+}
+
+export async function getQuestsByCourse(courseId: number): Promise<Quest[]> {
+    return db.select().from(quest).where(eq(quest.courseId, courseId))
+}
+
+export async function getQuestById(questId: number): Promise<Quest | null> {
+    const result = await db
+        .select()
+        .from(quest)
+        .where(eq(quest.id, questId))
         .limit(1)
 
     return result[0] ?? null
