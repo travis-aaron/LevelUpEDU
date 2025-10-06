@@ -3,7 +3,7 @@ import {reward, redemption} from '../schema'
 
 import type {Reward} from '@/types/db'
 
-import {and, count, eq, inArray, sum} from 'drizzle-orm'
+import {and, count, eq, inArray} from 'drizzle-orm'
 
 export async function createReward(data: {
     courseId: number

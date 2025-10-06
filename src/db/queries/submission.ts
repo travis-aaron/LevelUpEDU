@@ -1,5 +1,5 @@
 import {db} from '../index'
-import {submission, transaction} from '../schema'
+import {submission} from '../schema'
 
 import type {Quest, Submission, Transaction} from '@/types/db'
 
