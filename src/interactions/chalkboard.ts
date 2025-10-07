@@ -33,6 +33,23 @@ interactionRegistry.register('chalkboard', (scene, _data?) => {
     )
     border.setDepth(3000)
 
+    // Prevent clicks on the border from reaching the overlay (treat border as inside)
+    border.setInteractive()
+    border.on(
+        'pointerdown',
+        (
+            _pointer: Phaser.Input.Pointer,
+            _localX: number,
+            _localY: number,
+            event: any
+        ) => {
+            // stopPropagation prevents the overlay's pointerdown from firing
+            if (event && typeof event.stopPropagation === 'function') {
+                event.stopPropagation()
+            }
+        }
+    )
+
     const chalkboardBg = scene.add.rectangle(
         centerX,
         centerY,
@@ -41,6 +58,22 @@ interactionRegistry.register('chalkboard', (scene, _data?) => {
         0x2d5016
     )
     chalkboardBg.setDepth(3001)
+
+    // Prevent clicks on the chalkboard area from reaching the overlay
+    chalkboardBg.setInteractive()
+    chalkboardBg.on(
+        'pointerdown',
+        (
+            _pointer: Phaser.Input.Pointer,
+            _localX: number,
+            _localY: number,
+            event: any
+        ) => {
+            if (event && typeof event.stopPropagation === 'function') {
+                event.stopPropagation()
+            }
+        }
+    )
 
     const chalkboardText = scene.add
         .text(centerX, centerY - 30, 'Welcome to the platform', {
@@ -56,7 +89,7 @@ interactionRegistry.register('chalkboard', (scene, _data?) => {
         .text(
             centerX,
             centerY + interfaceHeight / 2 - 60,
-            'Click anywhere, press Q or ESC to close',
+            'Click outside the chalkboard, press Q or ESC to close',
             {
                 fontSize: '24px',
                 color: '#cccccc',
@@ -83,7 +116,14 @@ interactionRegistry.register('chalkboard', (scene, _data?) => {
     }
 
     overlay.setInteractive()
-    overlay.on('pointerdown', closeInterface)
+    // Only close if the user clicks outside of the chalkboard area (treat border as inside)
+    overlay.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+        const bounds = border.getBounds()
+        // pointer.x / pointer.y are canvas coordinates; check against border bounds
+        if (!bounds.contains(pointer.x, pointer.y)) {
+            closeInterface()
+        }
+    })
 
     escKey.on('down', closeInterface)
     qKey.on('down', closeInterface)
