@@ -11,6 +11,7 @@ import {
     serial,
 } from 'drizzle-orm/pg-core'
 import {sql} from 'drizzle-orm'
+import {generateCourseCode} from './utils'
 
 /* enums */
 
@@ -162,14 +163,3 @@ export const transaction = pgTable(
         ),
     ]
 )
-
-/* helper functions */
-
-function generateCourseCode(): string {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    let code = ''
-    for (let i = 0; i < 6; i++) {
-        code += chars[Math.floor(Math.random() * chars.length)]
-    }
-    return code
-}
