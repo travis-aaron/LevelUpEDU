@@ -58,7 +58,7 @@ interactionRegistry.register('chalkboard', async (scene, _data?) => {
 
     // Load and display quests
     const quests = await loadQuests()
-    const doneStates: boolean[] = quests.map((q) => !!q.done)
+    const doneStates: boolean[] = quests.map((q) => Boolean(q.done))
 
     const listStartX = centerX - interfaceWidth / 2 + styles.layout.padding
     const listStartY = centerY - interfaceHeight / 2 + styles.layout.listStartY

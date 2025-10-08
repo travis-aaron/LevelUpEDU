@@ -19,7 +19,7 @@ export async function loadQuests(): Promise<Quest[]> {
         return data.quests.map((q: QuestResponse, i: number) => ({
             title: q.title ?? `Quest ${i + 1}`,
             points: typeof q.points === 'number' ? q.points : 0,
-            done: !!q.done,
+            done: Boolean(q.done),
         }))
     } catch {
         return []

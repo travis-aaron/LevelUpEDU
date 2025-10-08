@@ -1,7 +1,6 @@
 import {chalkboardStyles as styles} from '@/interactions/styles/chalkboardStyles'
 import type {Scene} from '@/scenes/Scene'
-import type {Quest} from './questData'
-import {persistToggle} from './questData'
+import {type Quest, persistToggle} from './questData'
 
 export function createOverlay(
     scene: Scene,
@@ -162,7 +161,43 @@ export function createQuestUI(
     selector.setDepth(styles.depths.selector)
     elements.push(selector)
 
-    // Create quest rows
+    const updateVisuals = (selectedIndex: number) => {
+        questTexts.forEach((qt, idx) => {
+            qt.setColor(
+                idx === selectedIndex ?
+                    styles.colors.questTextSelected
+                :   styles.colors.questText
+            )
+        })
+        selector.setY(startY + selectedIndex * styles.layout.rowSpacing)
+    }
+
+    const toggleDone = (index: number) => {
+        const newVal = !doneStates[index]
+        doneStates[index] = newVal
+        const mark = doneMarks[index]
+
+        mark.setVisible(newVal)
+        if (newVal) {
+            scene.tweens.add({
+                targets: mark,
+                scale: {
+                    from: styles.animations.tickScale.from,
+                    to: styles.animations.tickScale.to,
+                },
+                ease: styles.animations.tickEase,
+                duration: styles.animations.tickDuration,
+            })
+        }
+
+        persistToggle(index, newVal).then((ok) => {
+            if (!ok) {
+                doneStates[index] = !newVal
+                mark.setVisible(!newVal)
+            }
+        })
+    }
+
     quests.forEach((q, i) => {
         const y = startY + i * styles.layout.rowSpacing
         const combined = `${i + 1}. ${q.title}   (${q.points}pts)`
@@ -226,43 +261,6 @@ export function createQuestUI(
         hit.on('pointerover', () => updateVisuals(i))
         hit.on('pointerdown', handleClick)
     })
-
-    const updateVisuals = (selectedIndex: number) => {
-        questTexts.forEach((qt, idx) => {
-            qt.setColor(
-                idx === selectedIndex ?
-                    styles.colors.questTextSelected
-                :   styles.colors.questText
-            )
-        })
-        selector.setY(startY + selectedIndex * styles.layout.rowSpacing)
-    }
-
-    const toggleDone = (index: number) => {
-        const newVal = !doneStates[index]
-        doneStates[index] = newVal
-        const mark = doneMarks[index]
-
-        mark.setVisible(newVal)
-        if (newVal) {
-            scene.tweens.add({
-                targets: mark,
-                scale: {
-                    from: styles.animations.tickScale.from,
-                    to: styles.animations.tickScale.to,
-                },
-                ease: styles.animations.tickEase,
-                duration: styles.animations.tickDuration,
-            })
-        }
-
-        persistToggle(index, newVal).then((ok) => {
-            if (!ok) {
-                doneStates[index] = !newVal
-                mark.setVisible(!newVal)
-            }
-        })
-    }
 
     return {elements, updateVisuals, toggleDone}
 }
